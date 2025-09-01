@@ -4,7 +4,6 @@ import Tilt from 'react-parallax-tilt';
 const videos = [
   'https://www.youtube.com/embed/XZQ7bYXEE5g',
   'https://www.youtube.com/embed/dpAJDYnqVJs',
-  'https://www.youtube.com/embed/UQVbGgDAa3k',
   'https://www.youtube.com/embed/VIDEO_ID_4',
 ];
 
