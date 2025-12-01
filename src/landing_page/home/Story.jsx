@@ -1,196 +1,162 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from 'react-router-dom';
 
 const OurStory = () => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const storyData = {
-    title: "Our Story",
-    subtitle: "A Fresh Start with Big Dreams",
-    description: "Born from a passion for authentic flavors and a vision to bring quality condiments to every kitchen, we're excited to begin this journey with you. Our commitment is to deliver fresh, natural, and delicious products that enhance your culinary experience.",
+    title: "Our Journey",
+    subtitle: "Crafting Flavors, Creating Memories",
+    description:
+      "It all started with a simple belief: food should be real, fresh, and bursting with flavor. From a small kitchen experiment to a brand loved by many, Gulchu is a testament to passion and quality. We don't just make condiments; we craft experiences that bring families together.",
     highlights: [
       {
-        year: "2024",
-        title: "The Vision",
-        description: "Started with a dream to create authentic condiments"
+        year: "2023",
+        title: "The Spark",
+        description: "A vision to redefine authentic homemade taste.",
       },
       {
         year: "2024",
-        title: "Launch Ready",
-        description: "Carefully crafted recipes and quality ingredients"
+        title: "The Craft",
+        description: "Perfecting recipes with 100% natural ingredients.",
       },
       {
-        year: "2024",
-        title: "Your Journey",
-        description: "Ready to serve you with passion and dedication"
-      }
+        year: "Future",
+        title: "The Expansion",
+        description: "Bringing Gulchu to every dining table.",
+      },
     ],
     stats: [
-      { number: "100%", label: "Natural Ingredients" },
-      { number: "0", label: "Artificial Preservatives " },
-      { number: "∞", label: "Flavor Possibilities" }
-    ]
+      { number: "100%", label: "Natural" },
+      { number: "0%", label: "Preservatives" },
+      { number: "50+", label: "Recipes Tested" },
+    ],
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
   return (
-    <section className="relative mt-5 px-6 py-20 bg-cover bg-center bg-no-repeat rounded-3xl text-white overflow-hidden">
-      {/* Background Image with Overlay */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+    <section className="relative w-full py-24 px-6 md:px-12 lg:px-20 overflow-hidden">
+      {/* Background with Parallax-like feel */}
+      <div
+        className="absolute inset-0 bg-cover bg-fixed bg-center"
         style={{ backgroundImage: "url('/OurStory.png')" }}
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/70" />
-      
-      {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto">
-        {/* Main Story Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <motion.h2 
-            className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.3 }}
-          >
-            {storyData.title}
-          </motion.h2>
-          <motion.p 
-            className="text-xl md:text-2xl font-medium text-gray-300 mb-6"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-          >
-            {storyData.subtitle}
-          </motion.p>
-          <motion.p 
-            className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-          >
-            {storyData.description}
-          </motion.p>
-        </motion.div>
+      <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/90" />
 
-        {/* Timeline Section */}
-        <motion.div 
-          className="grid md:grid-cols-3 gap-8 mb-16"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
+      <div className="relative z-10 max-w-7xl mx-auto">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid lg:grid-cols-2 gap-16 items-center"
         >
-          {storyData.highlights.map((highlight, index) => (
-            <motion.div
-              key={index}
-              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300"
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
-              }}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 + index * 0.2, duration: 0.6 }}
-            >
-              <div className="text-3xl font-bold text-yellow-400 mb-2">
-                {highlight.year}
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-white">
-                {highlight.title}
+          {/* Left Column: Narrative */}
+          <div className="text-left space-y-8">
+            <motion.div variants={itemVariants}>
+              <h2 className="text-orange-500 font-bold tracking-widest uppercase text-sm mb-2">
+                {storyData.title}
+              </h2>
+              <h3 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                {storyData.subtitle}
               </h3>
-              <p className="text-gray-300">
-                {highlight.description}
-              </p>
             </motion.div>
-          ))}
-        </motion.div>
 
-        {/* Stats Section */}
-        <motion.div 
-          className="grid grid-cols-3 gap-6 mb-12"
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-        >
-          {storyData.stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              className="text-center"
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.3 }}
+            <motion.p
+              variants={itemVariants}
+              className="text-lg text-gray-300 leading-relaxed font-light"
             >
-              <div className="text-4xl md:text-5xl font-bold text-yellow-400 mb-2">
-                {stat.number}
-              </div>
-              <div className="text-gray-300 font-medium">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+              {storyData.description}
+            </motion.p>
 
-        {/* CTA Section */}
-        <motion.div 
-          className="text-center"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.4, duration: 0.8 }}
-        >
-          <motion.button
-            className="bg-gradient-to-r bg-white text-black px-8 py-4 rounded-full font-semibold text-lg hover:from-yellow-300 hover:to-orange-200 transition-all duration-200 transform hover:scale-101 shadow-lg hover:shadow-l"
-            whileHover={{ 
-              scale: 1.05,
-              boxShadow: "0 10px 30px rgba(251, 191, 36, 0.4)"
-            }}
-            whileTap={{ scale: 0.95 }}
-            onHoverStart={() => setIsHovered(true)}
-            onHoverEnd={() => setIsHovered(false)}
-          >
-            <span className="flex items-center justify-center gap-2">
-              Join Our Journey
-              <motion.svg 
-                className="w-5 h-5" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-                animate={{ x: isHovered ? 2 : 0 }}
-                transition={{ duration: 0.2 }}
+            {/* Stats Row */}
+            <motion.div
+              variants={itemVariants}
+              className="grid grid-cols-3 gap-6 pt-6 border-t border-white/10"
+            >
+              {storyData.stats.map((stat, index) => (
+                <div key={index} className="text-left">
+                  <div className="text-3xl font-bold text-white mb-1">
+                    {stat.number}
+                  </div>
+                  <div className="text-sm text-gray-400 uppercase tracking-wider">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+
+            <motion.div variants={itemVariants} className="pt-4">
+              <button className="group relative px-8 py-3 bg-white text-black font-bold rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                <span className="relative z-10 flex items-center gap-2">
+                  Read Full Story
+                  <svg
+                    className="w-4 h-4 transition-transform group-hover:translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </motion.div>
+          </div>
+
+          {/* Right Column: Timeline Cards */}
+          <div className="space-y-6">
+            {storyData.highlights.map((item, index) => (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                onHoverStart={() => setHoveredIndex(index)}
+                onHoverEnd={() => setHoveredIndex(null)}
+                className={`relative p-8 rounded-2xl border transition-all duration-300 ${hoveredIndex === index
+                    ? "bg-white/10 border-orange-500/50 scale-105 shadow-2xl"
+                    : "bg-white/5 border-white/10 hover:bg-white/10"
+                  } backdrop-blur-md`}
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </motion.svg>
-            </span>
-          </motion.button>
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0">
+                    <span className="block text-4xl font-black text-transparent bg-clip-text bg-gradient-to-br from-orange-400 to-red-600 opacity-80">
+                      {item.year}
+                    </span>
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold text-white mb-2">
+                      {item.title}
+                    </h4>
+                    <p className="text-gray-400 text-sm leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </div>
-
-      {/* Floating Elements */}
-      <motion.div
-        className="absolute top-10 left-10 w-20 h-20 bg-yellow-400/20 rounded-full blur-xl"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.6, 0.3],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      <motion.div
-        className="absolute bottom-10 right-10 w-32 h-32 bg-orange-500/20 rounded-full blur-xl"
-        animate={{
-          scale: [1.2, 1, 1.2],
-          opacity: [0.4, 0.7, 0.4],
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
     </section>
   );
 };
