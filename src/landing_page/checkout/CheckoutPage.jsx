@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { useCart } from '../../context/CartContext';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
+import {
+  sendToWhatsApp,
+  formatOrderWhatsAppMessage,
+} from '../../utils/whatsapp';
 
 const CheckoutPage = () => {
   const { items, cartItemCount, cartTotal, clearCart } = useCart();
@@ -59,15 +63,33 @@ const CheckoutPage = () => {
     setIsProcessing(true);
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      const subtotal = cartTotal;
+      const tax = subtotal * 0.18;
+      const shipping = 0;
+      const total = subtotal + tax + shipping;
+      const orderId = `ORD-${Date.now()}`;
+
+      const orderItems = items.map(item => ({ ...item, price: Number(item.price) }));
 
       const orderData = {
         customer: formData,
-        items: items.map(item => ({ ...item, price: Number(item.price) })),
-        total: cartTotal,
-        orderId: `ORD-${Date.now()}`,
+        items: orderItems,
+        total,
+        orderId,
         orderDate: new Date().toISOString()
       };
+
+      const waMessage = formatOrderWhatsAppMessage({
+        orderId,
+        customer: formData,
+        items: orderItems,
+        subtotal,
+        tax,
+        shipping,
+        total,
+      });
+
+      sendToWhatsApp(waMessage);
 
       setPlacedOrder(orderData);
       setOrderPlaced(true);
@@ -246,7 +268,7 @@ const CheckoutPage = () => {
               {/* Place Order Button */}
               <button onClick={handleSubmit} disabled={isProcessing}
                       className={`w-full py-3 rounded-lg font-semibold transition ${isProcessing?'bg-gray-400 cursor-not-allowed':'bg-red-600 hover:bg-red-700'} text-white`}>
-                {isProcessing ? <span className="flex items-center justify-center gap-2"><svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Processing...</span> : 'Place Order'}
+                {isProcessing ? <span className="flex items-center justify-center gap-2"><svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Opening WhatsApp...</span> : 'Place Order on WhatsApp'}
               </button>
 
               {/* Back to Cart */}

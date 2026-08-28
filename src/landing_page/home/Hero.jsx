@@ -1,157 +1,153 @@
-import React, { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import { Autoplay } from "swiper/modules";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Whatsaap from "./../Whatsaap";
 import { Link } from "react-router-dom";
+import Whatsaap from "./../Whatsaap";
+
+const lineup = [
+  {
+    src: "/TomatoKetchup.png",
+    label: "Tomato Ketchup",
+    headline: "हर बाइट में ताज़गी का स्वाद",
+    support: "Sun-ripened tomatoes. Clean recipes. Gulchu on every table.",
+  },
+  {
+    src: "/GreenChilli.png",
+    label: "Chilli Sauce",
+    headline: "Spice with a story",
+    support: "Bold heat for momos, fries, and everyday chaat nights.",
+  },
+  {
+    src: "/ContinentalSauce.png",
+    label: "Continental",
+    headline: "Finish strong",
+    support: "Pasta, pizza, and weeknight plates—elevated in one pour.",
+  },
+];
 
 const Hero = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [active, setActive] = useState(0);
+  const item = lineup[active];
 
-  const slides = [
-    {
-      bg: "/Background.jpg",
-      title: 'Gulchu – "हर बाइट में ताज़गी का स्वाद"',
-      subtitle: "अब आपके शहर में उपलब्ध!",
-      cta: "Order Now",
-    },
-    {
-      bg: "/ContinentalSauce.png",
-      title: "Gulchu – Freshness in every bite",
-      subtitle: "Available near you now!",
-      cta: "Explore Menu",
-    },
-    {
-      bg: "/GreenChilli.png",
-      title: "Gulchu – Delightful Treats",
-      subtitle: "Taste the freshness!",
-      cta: "Get Started",
-    },
-    {
-      bg: "/TomatoKetchup.png",
-      title: "Gulchu – Premium Flavors",
-      subtitle: "Crafted for true food lovers!",
-      cta: "Try Now",
-    },
-  ];
-
-  // Animation Variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: "easeOut" },
-    },
-  };
+  useEffect(() => {
+    const id = setInterval(
+      () => setActive((i) => (i + 1) % lineup.length),
+      5000
+    );
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <>
-      <section className="relative w-full h-[85vh] md:h-[95vh] overflow-hidden bg-black">
-        <Swiper
-          modules={[Autoplay]}
-          autoplay={{
-            delay: 6000,
-            disableOnInteraction: false,
-          }}
-          loop={true}
-          speed={1000}
-          onSlideChange={(swiper) => setCurrentSlide(swiper.realIndex)}
-          className="h-full w-full"
-        >
-          {slides.map((slide, i) => (
-            <SwiperSlide key={i}>
-              <div
-                className="relative h-full w-full bg-cover bg-center"
-                style={{ backgroundImage: `url('${slide.bg}')` }}
-              >
-                {/* Enhanced Dark Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80" />
-
-                {/* Content */}
-                <div className="relative z-10 h-full flex items-center justify-center text-center px-4 md:px-12">
-                  {/* We use a key here to trigger re-animation on slide change if desired, 
-                      or just let the swiper handle the transition. 
-                      For entrance animations on every slide, we can use the currentSlide state 
-                      to conditionally render or just rely on the component mounting if Swiper unmounts slides.
-                      However, Swiper keeps slides in DOM. 
-                      To force animation replay, we can use the 'key' prop on the motion.div 
-                      but matching it to the active index is tricky inside the map.
-                      Instead, we'll animate the active slide's content by checking index.
-                   */}
-                  {i === currentSlide && (
-                    <motion.div
-                      className="max-w-4xl mx-auto"
-                      variants={containerVariants}
-                      initial="hidden"
-                      animate="visible"
-                    >
-                      <motion.h1
-                        variants={itemVariants}
-                        className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 tracking-tight drop-shadow-2xl leading-tight"
-                      >
-                        {slide.title}
-                      </motion.h1>
-                      <motion.p
-                        variants={itemVariants}
-                        className="text-lg md:text-2xl text-gray-200 mb-10 font-light tracking-wide max-w-2xl mx-auto"
-                      >
-                        {slide.subtitle}
-                      </motion.p>
-                      <motion.div variants={itemVariants}>
-                        <Link to="/product">
-                          <motion.button
-                            whileHover={{ scale: 1.05, boxShadow: "0px 0px 15px rgba(255, 165, 0, 0.6)" }}
-                            whileTap={{ scale: 0.95 }}
-                            className="bg-gradient-to-r from-orange-500 to-red-600 text-white px-10 py-4 rounded-full font-bold text-lg shadow-xl transition-all border border-white/10 backdrop-blur-sm"
-                          >
-                            {slide.cta}
-                          </motion.button>
-                        </Link>
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-
-        {/* Custom Progress Bars */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-3 w-[80%] max-w-lg">
-          {slides.map((_, i) => (
-            <div
-              key={i}
-              className="h-1.5 flex-1 rounded-full overflow-hidden bg-white/20 backdrop-blur-sm"
-            >
-              <div
-                className={`h-full transition-all duration-[6000ms] ease-linear ${
-                  i === currentSlide ? "bg-orange-500 w-full" : "bg-transparent w-0"
-                }`}
-              ></div>
-            </div>
-          ))}
+      <section className="hero relative isolate min-h-[100svh] w-full overflow-hidden bg-[#1a1210]">
+        {/* Full-bleed kitchen atmosphere */}
+        <div className="absolute inset-0">
+          <img
+            src="/Background.jpg"
+            alt=""
+            className="h-full w-full object-cover object-center scale-105"
+            draggable={false}
+          />
+          <div className="absolute inset-0 bg-[#1a1210]/55" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#1a1210] via-[#1a1210]/80 to-[#1a1210]/25" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1a1210] via-transparent to-[#1a1210]/40" />
         </div>
 
-        {/* Slide Counter */}
-        <div className="absolute bottom-12 right-8 z-20 bg-black/40 backdrop-blur-md border border-white/10 text-white px-5 py-2 rounded-full text-sm font-medium tracking-widest shadow-lg">
-          <span className="text-orange-400 font-bold text-lg">{currentSlide + 1}</span>
-          <span className="mx-2 text-white/50">/</span>
-          {slides.length}
+        <div className="relative z-10 mx-auto grid min-h-[100svh] w-full max-w-7xl grid-cols-1 items-end gap-8 px-5 pb-12 pt-10 sm:px-8 md:grid-cols-12 md:items-center md:gap-6 md:px-12 md:pt-12 lg:px-16 lg:pb-16">
+          {/* Copy — brand first */}
+          <div className="md:col-span-6 lg:col-span-6">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="hero-brand text-[clamp(4rem,11vw,7.5rem)] leading-[0.85] tracking-[0.02em] text-[#faf7f2]"
+            >
+              Gulchu
+            </motion.p>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-6 max-w-md"
+              >
+                <h1 className="hero-headline text-[clamp(1.6rem,3.2vw,2.6rem)] leading-snug text-[#faf7f2]">
+                  {item.headline}
+                </h1>
+                <p className="hero-copy mt-4 text-base leading-relaxed text-[#faf7f2]/70 md:text-lg">
+                  {item.support}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.2 }}
+              className="mt-9 flex flex-wrap gap-3"
+            >
+              <Link
+                to="/product"
+                className="hero-copy inline-flex items-center gap-2 rounded-md bg-[#c62828] px-7 py-3.5 text-sm font-semibold tracking-wide text-[#faf7f2] transition-colors hover:bg-[#9b1c1c]"
+              >
+                Shop products
+                <span aria-hidden>→</span>
+              </Link>
+              <Link
+                to="/about"
+                className="hero-copy inline-flex items-center rounded-md border border-[#faf7f2]/35 px-7 py-3.5 text-sm font-medium tracking-wide text-[#faf7f2] transition-colors hover:border-[#faf7f2] hover:bg-[#faf7f2]/10"
+              >
+                Our story
+              </Link>
+            </motion.div>
+
+            {/* Lineup switcher */}
+            <div className="mt-10 flex flex-wrap gap-2">
+              {lineup.map((p, i) => (
+                <button
+                  key={p.label}
+                  type="button"
+                  onClick={() => setActive(i)}
+                  className={`hero-copy rounded-md px-3.5 py-2 text-xs font-medium tracking-wide transition-colors ${
+                    i === active
+                      ? "bg-[#faf7f2] text-[#1a1210]"
+                      : "bg-[#faf7f2]/10 text-[#faf7f2]/70 hover:bg-[#faf7f2]/18 hover:text-[#faf7f2]"
+                  }`}
+                >
+                  {p.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Dominant product — full bottle, never cropped */}
+          <div className="relative flex items-end justify-center md:col-span-6 md:justify-end lg:col-span-6">
+            <div
+              className="pointer-events-none absolute bottom-6 left-1/2 h-16 w-[70%] -translate-x-1/2 rounded-[100%] bg-black/40 blur-2xl md:left-auto md:right-[12%] md:translate-x-0"
+              aria-hidden
+            />
+            <motion.div
+              animate={{ y: [0, -12, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              className="relative"
+            >
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={item.src}
+                  src={item.src}
+                  alt={item.label}
+                  initial={{ opacity: 0, x: 40, scale: 0.92 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: -24, scale: 0.95 }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className="h-[min(58vh,560px)] w-auto max-w-[min(85vw,420px)] object-contain drop-shadow-none select-none"
+                  draggable={false}
+                />
+              </AnimatePresence>
+            </motion.div>
+          </div>
         </div>
       </section>
 

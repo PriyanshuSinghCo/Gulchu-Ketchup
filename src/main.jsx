@@ -25,13 +25,11 @@ import ManagementTeam from './landing_page/about/subAbout/ManagementTeam';
 import Video from './landing_page/about/subAbout/Video';
 import Footer from './landing_page/Footer';
 import GoToTop from './landing_page/GoToTop';
-import SmoothScrollWrapper from './landing_page/Lenis';
 import CartPage from './landing_page/cart/CartPage';
 import CheckoutPage from './landing_page/checkout/CheckoutPage';
 import { CartProvider } from './context/CartContext';
 
 createRoot(document.getElementById("root")).render(
-    <SmoothScrollWrapper>
       <CartProvider>
         <BrowserRouter>
           <Navbar/>
@@ -65,5 +63,4 @@ createRoot(document.getElementById("root")).render(
           <Footer/>
         </BrowserRouter>
       </CartProvider>
-    </SmoothScrollWrapper>
 );

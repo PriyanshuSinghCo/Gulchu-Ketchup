@@ -33,7 +33,7 @@ function Footer() {
         {/* Contact Info */}
         <div>
           <h3 className="text-lg font-semibold mb-3 text-white">Contact Us</h3>
-          <p className="text-sm text-gray-300">Kaushik Agro Food Pvt. Ltd.</p>
+          <p className="text-sm text-gray-300">Kaushik Agro Food</p>
           <p className="text-sm text-gray-300">Chatra, Jharkhand – 825408</p>
           <p className="text-sm text-gray-300 mt-2">Phone: +91 9905120896</p>
           <p className="text-sm text-gray-300">Email: kaushikagrofoods@gmail.com
@@ -43,7 +43,7 @@ function Footer() {
 
       {/* Copyright */}
       <div className="border-t border-gray-700 mt-10 pt-6 text-center text-sm text-gray-400">
-        &copy; {new Date().getFullYear()} Gulchu | Kaushik Agro Food Pvt. Ltd. All rights reserved.
+        &copy; {new Date().getFullYear()} Gulchu | Kaushik Agro Food. All rights reserved.
       </div>
     </footer>
   );

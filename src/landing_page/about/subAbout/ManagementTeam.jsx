@@ -1,114 +1,181 @@
-import React, { useEffect, useState } from 'react';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaLinkedin, FaEnvelope, FaUser } from "react-icons/fa";
 
 const teamMembers = [
   {
-    name: 'Mr. Praveen Kumar Singh',
-    role: 'Founder & Managing Director',
-    image: '/director.jpg',
-    linkedin: 'https://linkedin.com/in/praveen-kumar',
-    email: 'praveen@example.com',
-    bio: 'Praveen brings 20+ years of agro-industrial experience and leads with a vision of innovation and trust.',
+    name: "Mr. Praveen Kumar Singh",
+    role: "Founder & Managing Director",
+    image: "/Praveen Singh.jpeg",
+    linkedin: "https://linkedin.com/in/praveen-kumar",
+    email: "praveen@example.com",
+    bio: "Praveen brings 20+ years of agro-industrial experience and leads with a vision of innovation and trust.",
   },
   {
-    name: 'Ms. XYZ',
-    role: 'Head of Marketing',
-    image: '/richa.jpg',
-    linkedin: 'https://linkedin.com/in/richa-sharma',
-    email: 'richa@example.com',
-    bio: 'Richa drives brand storytelling and growth marketing strategies that elevate Gulchu globally.',
+    name: "Nishu Singh",
+    role: "Managing Director",
+    // image: "/nishu.jpg", // add later
+    linkedin: "https://linkedin.com/in/nishu-singh",
+    email: "nishu@example.com",
+    bio: "Nishu Singh leads Gulchu as Managing Director, guiding brand growth, quality, and day-to-day excellence across the business.",
   },
   {
-    name: 'Mr. Banrakash',
-    role: 'Operations Manager',
-    image: '/sandeep.jpg',
-    linkedin: 'https://linkedin.com/in/sandeep-verma',
-    email: 'sandeep@example.com',
-    bio: 'Sandeep oversees supply chain and production operations with a strong focus on quality and efficiency.',
+    name: "Saurabh Sharma",
+    role: "GM",
+    // image: "/saurabh.jpg", // add later
+    linkedin: "https://linkedin.com/in/saurabh-sharma",
+    email: "saurabh@example.com",
+    bio: "Saurabh Sharma serves as GM, overseeing operations and ensuring quality and efficiency across Gulchu’s supply and production.",
   },
 ];
+
+function MemberAvatar({ image, name, size = "lg" }) {
+  const sizeClass =
+    size === "lg"
+      ? "h-28 w-28 text-4xl"
+      : "h-24 w-24 text-3xl";
+
+  if (image) {
+    return (
+      <img
+        src={image}
+        alt={name}
+        className={`mx-auto rounded-full object-cover ring-4 ring-[#f3eee8] ${sizeClass}`}
+      />
+    );
+  }
+
+  return (
+    <div
+      className={`mx-auto flex items-center justify-center rounded-full bg-[#f3eee8] text-[#c62828] ring-4 ring-white ${sizeClass}`}
+      aria-hidden
+    >
+      <FaUser />
+    </div>
+  );
+}
 
 function ManagementTeam() {
   const [selectedMember, setSelectedMember] = useState(null);
 
-  useEffect(() => {
-    AOS.init({ duration: 1000, once: true });
-  }, []);
-
   return (
-    <section className=" px-6 py-16 bg-gray-50 text-gray-800">
-      <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-4xl font-bold mb-4">Our Management Team</h2>
-        <p className="text-lg text-gray-600 mb-12">
-          Meet the passionate minds behind Kaushik Agro Food — driving innovation, quality, and trust across every product.
-        </p>
+    <section className="min-h-[100svh] bg-[#faf7f2] px-6 pb-20 pt-10 text-[#1a1210] md:pb-28 md:pt-14">
+      <div className="mx-auto max-w-6xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-2xl"
+        >
+          <p className="hero-copy text-xs font-bold uppercase tracking-[0.28em] text-[#c62828]">
+            Leadership
+          </p>
+          <h1 className="hero-headline mt-3 text-[clamp(2rem,4vw,3.25rem)] leading-[1.12] text-[#1a1210]">
+            Our Management Team
+          </h1>
+          <p className="hero-copy mt-4 text-base leading-relaxed text-[#1a1210]/65 md:text-lg">
+            Meet the people behind Kaushik Agro Food—driving innovation, quality,
+            and trust across every Gulchu product.
+          </p>
+        </motion.div>
 
-        {/* Team Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 md:mt-16 md:grid-cols-3 md:gap-6">
           {teamMembers.map((member, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-2xl shadow-md p-6 hover:shadow-xl transition-all duration-300 group relative cursor-pointer"
-              data-aos="fade-up"
-              data-aos-delay={index * 100}
+            <motion.button
+              key={member.name}
+              type="button"
+              initial={{ opacity: 0, y: 22 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.08, duration: 0.45 }}
               onClick={() => setSelectedMember(member)}
+              className="group border border-[#1a1210]/10 bg-white p-6 text-left transition-colors hover:border-[#c62828]/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c62828]"
             >
-              <img
-                src={member.image}
-                alt={member.name}
-                className="w-32 h-32 rounded-full mx-auto object-cover shadow-md mb-4"
-              />
-              <h3 className="text-xl font-semibold">{member.name}</h3>
-              <p className="text-sm text-gray-500">{member.role}</p>
-
-              {/* Hover Email */}
-              <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-xs text-gray-500 opacity-0 group-hover:opacity-100 transition ">
-                {member.email}
+              <div className="transition-transform duration-300 group-hover:scale-[1.03]">
+                <MemberAvatar image={member.image} name={member.name} />
+              </div>
+              <h2 className="hero-copy mt-5 text-center text-lg font-bold text-[#1a1210] group-hover:text-[#c62828]">
+                {member.name}
+              </h2>
+              <p className="hero-copy mt-1 text-center text-sm font-medium text-[#1a1210]/55">
+                {member.role}
               </p>
 
-              {/* Social Icons */}
-              <div className="mt-4 flex justify-center space-x-4 text-xl text-gray-600">
-                <a href={member.linkedin} target="_blank" rel="noopener noreferrer">
-                  <FaLinkedin className="hover:text-blue-700" />
+              <div
+                className="mt-5 flex justify-center gap-4 text-lg text-[#1a1210]/45"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-[#0a66c2]"
+                  aria-label={`${member.name} LinkedIn`}
+                >
+                  <FaLinkedin />
                 </a>
-                <a href={`mailto:${member.email}`}>
-                  <FaEnvelope className="hover:text-red-500" />
+                <a
+                  href={`mailto:${member.email}`}
+                  className="transition-colors hover:text-[#c62828]"
+                  aria-label={`Email ${member.name}`}
+                >
+                  <FaEnvelope />
                 </a>
               </div>
-            </div>
+            </motion.button>
           ))}
         </div>
       </div>
 
-      {/* Modal */}
-      {selectedMember && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center px-4">
-          <div className="relative bg-white rounded-xl shadow-lg max-w-md w-full max-h-[90vh] overflow-y-auto p-6 animate-fade-in">
-            {/* Close Button */}
-            <button
-              onClick={() => setSelectedMember(null)}
-              className="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-2xl font-bold focus:outline-none"
-              aria-label="Close Modal"
+      <AnimatePresence>
+        {selectedMember && (
+          <motion.div
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-[#1a1210]/55 px-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedMember(null)}
+          >
+            <motion.div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="team-member-name"
+              initial={{ opacity: 0, y: 16, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 12, scale: 0.98 }}
+              transition={{ duration: 0.25 }}
+              className="relative w-full max-w-md border border-[#1a1210]/10 bg-white p-7 pt-10"
+              onClick={(e) => e.stopPropagation()}
             >
-              &times;
-            </button>
+              <button
+                type="button"
+                onClick={() => setSelectedMember(null)}
+                className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center text-2xl text-[#1a1210]/45 transition-colors hover:text-[#c62828]"
+                aria-label="Close"
+              >
+                ×
+              </button>
 
-            {/* Modal Content */}
-            <div className="text-center mt-6">
-              <img
-                src={selectedMember.image}
-                alt={selectedMember.name}
-                className="w-24 h-24 rounded-full mx-auto mb-4 shadow"
+              <MemberAvatar
+                image={selectedMember.image}
+                name={selectedMember.name}
+                size="md"
               />
-              <h3 className="text-2xl font-bold mb-1">{selectedMember.name}</h3>
-              <p className="text-sm text-gray-500 mb-3">{selectedMember.role}</p>
-              <p className="text-sm text-gray-700 leading-relaxed">{selectedMember.bio}</p>
-            </div>
-          </div>
-        </div>
-      )}
+              <h3
+                id="team-member-name"
+                className="hero-headline mt-4 text-center text-2xl text-[#1a1210]"
+              >
+                {selectedMember.name}
+              </h3>
+              <p className="hero-copy mt-1 text-center text-sm font-semibold uppercase tracking-[0.14em] text-[#c62828]">
+                {selectedMember.role}
+              </p>
+              <p className="hero-copy mt-4 text-center text-sm leading-relaxed text-[#1a1210]/70">
+                {selectedMember.bio}
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
