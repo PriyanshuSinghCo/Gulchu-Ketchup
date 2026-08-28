@@ -3,26 +3,47 @@ import React, { createContext, useContext, useReducer, useEffect } from 'react';
 // Cart context
 const CartContext = createContext();
 
+/** Turn "₹99", "99.00", 99 into a finite number (0 if invalid) */
+export function parsePrice(value) {
+  if (typeof value === "number") {
+    return Number.isFinite(value) ? value : 0;
+  }
+  if (typeof value === "string") {
+    const n = Number(value.replace(/[^\d.]/g, ""));
+    return Number.isFinite(n) ? n : 0;
+  }
+  return 0;
+}
+
+function normalizeCartItem(item) {
+  return {
+    ...item,
+    price: parsePrice(item.price),
+    quantity: item.quantity || 1,
+  };
+}
+
 // Cart reducer
 const cartReducer = (state, action) => {
   switch (action.type) {
-    case 'ADD_TO_CART':
-      const existingItem = state.items.find(item => item.id === action.payload.id);
+    case 'ADD_TO_CART': {
+      const payload = normalizeCartItem(action.payload);
+      const existingItem = state.items.find(item => item.id === payload.id);
       if (existingItem) {
         return {
           ...state,
           items: state.items.map(item =>
-            item.id === action.payload.id
-              ? { ...item, quantity: item.quantity + 1 }
+            item.id === payload.id
+              ? { ...item, quantity: item.quantity + 1, price: payload.price }
               : item
           ),
         };
-      } else {
-        return {
-          ...state,
-          items: [...state.items, { ...action.payload, quantity: 1 }],
-        };
       }
+      return {
+        ...state,
+        items: [...state.items, { ...payload, quantity: 1 }],
+      };
+    }
 
     case 'REMOVE_FROM_CART':
       return {
@@ -49,7 +70,7 @@ const cartReducer = (state, action) => {
     case 'LOAD_CART':
       return {
         ...state,
-        items: action.payload,
+        items: (action.payload || []).map(normalizeCartItem),
       };
 
     default:
@@ -67,8 +88,12 @@ export const CartProvider = ({ children }) => {
   useEffect(() => {
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
-      const parsedCart = JSON.parse(savedCart);
-      dispatch({ type: 'LOAD_CART', payload: parsedCart });
+      try {
+        const parsedCart = JSON.parse(savedCart);
+        dispatch({ type: 'LOAD_CART', payload: parsedCart });
+      } catch {
+        localStorage.removeItem('cart');
+      }
     }
   }, []);
 
@@ -82,15 +107,7 @@ export const CartProvider = ({ children }) => {
 
   // Calculate total price safely
   const cartTotal = state.items.reduce((total, item) => {
-    let price = item.price;
-
-    // If price is string, remove symbols and convert to number
-    if (typeof price === "string") {
-      price = Number(price.replace(/[^\d.]/g, ""));
-    }
-
-    const quantity = item.quantity || 1;
-    return total + price * quantity;
+    return total + parsePrice(item.price) * (item.quantity || 1);
   }, 0);
 
   // Add to cart function

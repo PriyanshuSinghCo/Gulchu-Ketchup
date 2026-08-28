@@ -128,7 +128,7 @@ function ProductCard({ product, index }) {
       id: productId,
       name: product.name,
       image: product.image,
-      price: `₹${product.price}`,
+      price: product.price,
       rating: 4.6,
       reviews: 120,
     });

@@ -36,7 +36,7 @@ const ProductCard = ({ name, image, variants, description }) => {
       id: productId,
       name: name,
       image: image,
-      price: "₹199.00", // Default price, you can make this dynamic
+      price: 199,
       rating: "4.5",
       reviews: "128",
       quantity: 1

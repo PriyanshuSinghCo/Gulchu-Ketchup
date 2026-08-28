@@ -35,11 +35,11 @@ export function formatOrderWhatsAppMessage({
 }) {
   const itemLines = items
     .map((item) => {
-      const price = Number(
+      const raw =
         typeof item.price === "string"
-          ? item.price.replace(/[^\d.]/g, "")
-          : item.price
-      );
+          ? Number(item.price.replace(/[^\d.]/g, ""))
+          : Number(item.price);
+      const price = Number.isFinite(raw) ? raw : 0;
       const qty = item.quantity || 1;
       return `• ${item.name} x${qty} — ₹${(price * qty).toFixed(2)}`;
     })

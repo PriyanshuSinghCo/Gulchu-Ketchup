@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useCart } from '../../context/CartContext';
+import { useCart, parsePrice } from '../../context/CartContext';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import {
@@ -69,7 +69,7 @@ const CheckoutPage = () => {
       const total = subtotal + tax + shipping;
       const orderId = `ORD-${Date.now()}`;
 
-      const orderItems = items.map(item => ({ ...item, price: Number(item.price) }));
+      const orderItems = items.map(item => ({ ...item, price: parsePrice(item.price) }));
 
       const orderData = {
         customer: formData,
