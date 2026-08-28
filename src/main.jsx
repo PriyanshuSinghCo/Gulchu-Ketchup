@@ -32,35 +32,39 @@ import { CartProvider } from './context/CartContext';
 createRoot(document.getElementById("root")).render(
       <CartProvider>
         <BrowserRouter>
-          <Navbar/>
-          <Routes>
-            <Route path="/" element={<HomePage />}></Route>
-            <Route path="/home" element={<HomePage />}></Route>
-            <Route path="/about" element={<AboutPage />}></Route>
-            <Route path="/about/company" element={<Company />}></Route>
-            <Route path="/about/director" element={<Director />}></Route>
-            <Route path="/about/ManagementTeam" element={<ManagementTeam />}></Route>
-            <Route path="/about/video" element={<Video />}></Route>
+          <div className="flex min-h-dvh w-full max-w-full min-w-0 flex-col overflow-x-clip">
+            <Navbar />
+            <main className="w-full max-w-full min-w-0 flex-1 overflow-x-clip">
+              <Routes>
+                <Route path="/" element={<HomePage />}></Route>
+                <Route path="/home" element={<HomePage />}></Route>
+                <Route path="/about" element={<AboutPage />}></Route>
+                <Route path="/about/company" element={<Company />}></Route>
+                <Route path="/about/director" element={<Director />}></Route>
+                <Route path="/about/ManagementTeam" element={<ManagementTeam />}></Route>
+                <Route path="/about/video" element={<Video />}></Route>
 
-            <Route path="/contact" element={<ContactPage />}></Route>
-            <Route path="/product" element={<ProductPage />}></Route>
-            <Route path="/product/TomatoKetchup" element={<TomatoKetchup />}></Route>
-            <Route path="/product/RedChilliSauce" element={<RedChilli />}></Route>
-            <Route path="/product/GreenChilli" element={<GreenChilli />}></Route>
-            <Route path="/product/SchezwanChutney" element={<SchezwanChutney />}></Route>
-            <Route path="/product/PizzaPastaSauce" element={<PizzaPastaSauce />}></Route>
-            <Route path="/product/GarlicPaste" element={<GarlicPaste />}></Route>
-            <Route path="/product/Pickles(Achar)" element={<Pickles />}></Route>
-            <Route path="/product/VegMayonnaise" element={<VegMayonnaise />}></Route>
-            <Route path="/product/MomosChutney" element={<MomosChutney />}></Route>
-            <Route path="/product/SoyaSauce" element={<SoyaSauce />}></Route>
-            <Route path="/recipe" element={<RecipesHero/>}></Route>
-            <Route path="/cart" element={<CartPage />}></Route>
-            <Route path="/checkout" element={<CheckoutPage />}></Route>
-            <Route path="/*" element={<PageNotFound />}></Route>
-          </Routes>
-          <GoToTop/>
-          <Footer/>
+                <Route path="/contact" element={<ContactPage />}></Route>
+                <Route path="/product" element={<ProductPage />}></Route>
+                <Route path="/product/TomatoKetchup" element={<TomatoKetchup />}></Route>
+                <Route path="/product/RedChilliSauce" element={<RedChilli />}></Route>
+                <Route path="/product/GreenChilli" element={<GreenChilli />}></Route>
+                <Route path="/product/SchezwanChutney" element={<SchezwanChutney />}></Route>
+                <Route path="/product/PizzaPastaSauce" element={<PizzaPastaSauce />}></Route>
+                <Route path="/product/GarlicPaste" element={<GarlicPaste />}></Route>
+                <Route path="/product/Pickles(Achar)" element={<Pickles />}></Route>
+                <Route path="/product/VegMayonnaise" element={<VegMayonnaise />}></Route>
+                <Route path="/product/MomosChutney" element={<MomosChutney />}></Route>
+                <Route path="/product/SoyaSauce" element={<SoyaSauce />}></Route>
+                <Route path="/recipe" element={<RecipesHero/>}></Route>
+                <Route path="/cart" element={<CartPage />}></Route>
+                <Route path="/checkout" element={<CheckoutPage />}></Route>
+                <Route path="/*" element={<PageNotFound />}></Route>
+              </Routes>
+            </main>
+            <GoToTop />
+            <Footer />
+          </div>
         </BrowserRouter>
       </CartProvider>
 );

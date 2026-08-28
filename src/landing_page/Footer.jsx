@@ -4,8 +4,8 @@ import { FaFacebookF, FaInstagram, FaLinkedin, FaEnvelope } from "react-icons/fa
 
 function Footer() {
   return (
-    <footer className="mt-5 bg-gray-900 px-4 py-10 text-white sm:px-6">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 sm:gap-10 md:grid-cols-3">
+    <footer className="mt-5 w-full max-w-full bg-gray-900 px-4 py-10 text-white sm:px-6">
+      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-8 sm:gap-10 md:grid-cols-3">
         <div>
           <h2 className="mb-3 text-2xl font-bold text-red-500">Gulchu</h2>
           <p className="mb-4 text-sm leading-relaxed text-gray-300">

@@ -85,10 +85,10 @@ const Navbar = () => {
   }, [mobileOpen]);
 
   return (
-    <header className="sticky top-0 z-50 w-full">
+    <header className="sticky top-0 z-50 w-full max-w-full min-w-0 overflow-x-clip">
       {/* Main nav */}
-      <nav className="bg-[#8b1e1e]">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <nav className="w-full max-w-full bg-[#8b1e1e]">
+        <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between px-3 sm:h-16 sm:px-6 lg:px-8">
           <NavLink to="/" aria-label="Home" className="flex items-center gap-2.5">
             <img
               src="/logo2.jpeg"
@@ -114,11 +114,11 @@ const Navbar = () => {
 
                 {link.submenu && (
                   <div
-                    className={`invisible absolute top-full z-50 mt-4 origin-top scale-95 opacity-0 transition duration-200 group-hover:visible group-hover:scale-100 group-hover:opacity-100 ${
+                    className={`invisible absolute top-full z-50 mt-4 hidden origin-top scale-95 opacity-0 transition duration-200 md:block group-hover:visible group-hover:scale-100 group-hover:opacity-100 ${
                       link.mega
-                        ? "left-1/2 w-[560px] -translate-x-1/2"
+                        ? "left-1/2 w-[min(560px,calc(100vw-2rem))] -translate-x-1/2"
                         : link.aboutMega
-                          ? "left-1/2 w-[480px] -translate-x-1/2"
+                          ? "left-1/2 w-[min(480px,calc(100vw-2rem))] -translate-x-1/2"
                           : "left-0 min-w-[200px]"
                     }`}
                   >
