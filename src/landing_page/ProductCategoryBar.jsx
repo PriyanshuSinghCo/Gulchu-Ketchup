@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const products = [
@@ -21,7 +21,7 @@ function ProductItem({ product }) {
       className="product-marquee-item group flex w-[76px] shrink-0 flex-col items-center gap-1.5 px-1 py-1 sm:w-[80px]"
       aria-label={product.label}
     >
-      <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-white transition-transform duration-300 active:scale-95 md:group-hover:scale-105">
+      <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-white transition-transform duration-300 active:scale-95 group-hover:scale-105">
         <img
           src={product.image}
           alt=""
@@ -38,25 +38,22 @@ function ProductItem({ product }) {
 }
 
 function ProductCategoryBar() {
+  const [paused, setPaused] = useState(false);
   const loop = [...products, ...products];
 
   return (
-    <div className="product-marquee overflow-hidden border-t border-white/25 bg-[#5a1212]">
+    <div
+      className={`product-marquee overflow-hidden border-t border-white/25 bg-[#5a1212]${paused ? " is-paused" : ""}`}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onTouchStart={() => setPaused(true)}
+      onTouchEnd={() => setPaused(false)}
+    >
       <div className="mx-auto max-w-7xl px-3 py-2 sm:px-6 sm:py-2.5 lg:px-8">
-        {/* Mobile: swipe/scroll to browse */}
-        <div className="product-marquee-scroll flex gap-1.5 md:hidden">
-          {products.map((product) => (
-            <ProductItem key={`m-${product.path}`} product={product} />
+        <div className="product-marquee-track flex w-max items-start gap-1.5">
+          {loop.map((product, index) => (
+            <ProductItem key={`${product.path}-${index}`} product={product} />
           ))}
-        </div>
-
-        {/* Desktop: smooth infinite marquee */}
-        <div className="hidden md:block">
-          <div className="product-marquee-track flex w-max items-start gap-1.5">
-            {loop.map((product, index) => (
-              <ProductItem key={`${product.path}-${index}`} product={product} />
-            ))}
-          </div>
         </div>
       </div>
     </div>

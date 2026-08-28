@@ -131,13 +131,14 @@ select {
   width: 2rem;
 }
 
-/* Product category infinite marquee */
+/* Product category infinite marquee (phone + desktop) */
 .product-marquee-track {
-  animation: product-marquee 38s linear infinite;
+  animation: product-marquee 32s linear infinite;
   will-change: transform;
 }
 
-.product-marquee:hover .product-marquee-track {
+.product-marquee:hover .product-marquee-track,
+.product-marquee.is-paused .product-marquee-track {
   animation-play-state: paused;
 }
 
@@ -153,29 +154,6 @@ select {
 @media (prefers-reduced-motion: reduce) {
   .product-marquee-track {
     animation: none;
-  }
-}
-
-/* Mobile: scrollable product strip is easier than auto-marquee */
-@media (max-width: 767px) {
-  .product-marquee-track {
-    animation: none;
-  }
-
-  .product-marquee-scroll {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-    overscroll-behavior-x: contain;
-    scrollbar-width: none;
-  }
-
-  .product-marquee-scroll::-webkit-scrollbar {
-    display: none;
-  }
-
-  .product-marquee-scroll .product-marquee-item {
-    scroll-snap-align: start;
   }
 }
 
