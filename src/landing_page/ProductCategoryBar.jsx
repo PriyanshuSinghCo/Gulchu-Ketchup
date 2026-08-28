@@ -18,19 +18,19 @@ function ProductItem({ product }) {
   return (
     <Link
       to={product.path}
-      className="product-marquee-item group flex w-[76px] shrink-0 flex-col items-center gap-1.5 px-1 py-1 sm:w-[80px]"
+      className="product-marquee-item group flex w-[58px] shrink-0 flex-col items-center gap-1 sm:w-[62px]"
       aria-label={product.label}
     >
-      <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-white transition-transform duration-300 active:scale-95 group-hover:scale-105">
+      <span className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-white/95 shadow-[0_1px_0_rgba(0,0,0,0.12)] transition-transform duration-300 active:scale-95 group-hover:scale-105 sm:h-10 sm:w-10">
         <img
           src={product.image}
           alt=""
-          className="h-9 w-9 object-contain"
+          className="h-6 w-6 object-contain sm:h-7 sm:w-7"
           loading="lazy"
           draggable={false}
         />
       </span>
-      <span className="hero-copy max-w-[4.6rem] text-center text-[10px] font-semibold leading-tight text-white sm:text-[11px]">
+      <span className="hero-copy max-w-[58px] text-center text-[9px] font-semibold leading-[1.15] tracking-wide text-white/90 sm:max-w-[62px] sm:text-[10px]">
         {product.label}
       </span>
     </Link>
@@ -43,14 +43,15 @@ function ProductCategoryBar() {
 
   return (
     <div
-      className={`product-marquee overflow-hidden border-t border-white/25 bg-[#5a1212]${paused ? " is-paused" : ""}`}
+      className={`product-marquee w-full overflow-hidden border-t border-white/15 ${paused ? "is-paused" : ""}`}
+      style={{ backgroundColor: "#5a1212" }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onTouchStart={() => setPaused(true)}
       onTouchEnd={() => setPaused(false)}
     >
-      <div className="mx-auto max-w-7xl px-3 py-2 sm:px-6 sm:py-2.5 lg:px-8">
-        <div className="product-marquee-track flex w-max items-start gap-1.5">
+      <div className="mx-auto w-full max-w-7xl px-2 py-1.5 sm:px-4 sm:py-2 lg:px-6">
+        <div className="product-marquee-track flex w-max items-center gap-2.5 sm:gap-3">
           {loop.map((product, index) => (
             <ProductItem key={`${product.path}-${index}`} product={product} />
           ))}

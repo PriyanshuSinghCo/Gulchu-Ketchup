@@ -132,8 +132,12 @@ select {
 }
 
 /* Product category infinite marquee (phone + desktop) */
+.product-marquee {
+  background-color: #5a1212;
+}
+
 .product-marquee-track {
-  animation: product-marquee 32s linear infinite;
+  animation: product-marquee 28s linear infinite;
   will-change: transform;
 }
 
