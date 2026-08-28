@@ -146,10 +146,10 @@ function ProductCarousel({
       aria-roledescription="carousel"
       aria-label="Gulchu product carousel"
     >
-      <div className="relative mx-auto h-[340px] w-full overflow-hidden sm:h-[400px] md:h-[440px] lg:h-[480px]">
-        {/* Previous peek */}
+      <div className="relative mx-auto h-[280px] w-full overflow-hidden xs:h-[300px] sm:h-[380px] md:h-[440px] lg:h-[480px]">
+        {/* Previous peek — hide on very small screens for clarity */}
         <div
-          className={`${cardBase} pointer-events-none left-[2%] z-[1] h-[78%] w-[58%] scale-[0.82] bg-[#4a1518]/70 opacity-40`}
+          className={`${cardBase} pointer-events-none left-[2%] z-[1] hidden h-[78%] w-[58%] scale-[0.82] bg-[#4a1518]/70 opacity-40 sm:flex`}
           aria-hidden
         >
           <img
@@ -162,7 +162,7 @@ function ProductCarousel({
 
         {/* Next peek */}
         <div
-          className={`${cardBase} pointer-events-none right-[2%] z-[1] h-[78%] w-[58%] scale-[0.82] bg-[#4a1518]/70 opacity-40`}
+          className={`${cardBase} pointer-events-none right-[2%] z-[1] hidden h-[78%] w-[58%] scale-[0.82] bg-[#4a1518]/70 opacity-40 sm:flex`}
           aria-hidden
         >
           <img
@@ -187,7 +187,7 @@ function ProductCarousel({
                 ? { duration: 0.15 }
                 : { duration: 0.45, ease: [0.22, 1, 0.36, 1] }
             }
-            className={`${cardBase} left-1/2 z-[2] h-[92%] w-[68%] max-w-[280px] -translate-x-1/2 bg-gradient-to-b from-[#6b1f24] to-[#3d1014] shadow-[0_24px_50px_rgba(0,0,0,0.45)] ring-1 ring-white/10 sm:max-w-[300px] lg:max-w-[320px]`}
+            className={`${cardBase} left-1/2 z-[2] h-[92%] w-[78%] max-w-[260px] -translate-x-1/2 bg-gradient-to-b from-[#6b1f24] to-[#3d1014] shadow-[0_24px_50px_rgba(0,0,0,0.45)] ring-1 ring-white/10 sm:w-[68%] sm:max-w-[300px] lg:max-w-[320px]`}
           >
             <img
               src={products[currentSlide].src}
@@ -201,7 +201,7 @@ function ProductCarousel({
         <button
           type="button"
           onClick={onPrev}
-          className="absolute left-0 top-1/2 z-[3] flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#1a1210] shadow-md transition hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c62828]"
+          className="absolute left-1 top-1/2 z-[3] flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#1a1210] shadow-md transition active:scale-95 sm:left-0 sm:h-11 sm:w-11 md:hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c62828]"
           aria-label="Previous product"
         >
           <span className="text-xl leading-none" aria-hidden>
@@ -211,7 +211,7 @@ function ProductCarousel({
         <button
           type="button"
           onClick={onNext}
-          className="absolute right-0 top-1/2 z-[3] flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#1a1210] shadow-md transition hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c62828]"
+          className="absolute right-1 top-1/2 z-[3] flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#1a1210] shadow-md transition active:scale-95 sm:right-0 sm:h-11 sm:w-11 md:hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c62828]"
           aria-label="Next product"
         >
           <span className="text-xl leading-none" aria-hidden>
@@ -315,14 +315,14 @@ const Hero = () => {
         />
         <FoodPattern />
 
-        <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 px-5 py-10 sm:px-8 md:grid-cols-12 md:gap-8 md:px-10 md:py-14 lg:gap-10 lg:px-16 lg:py-16">
+        <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-6 px-4 py-8 sm:gap-10 sm:px-8 sm:py-10 md:grid-cols-12 md:gap-8 md:px-10 md:py-14 lg:gap-10 lg:px-16 lg:py-16">
           <div className="md:col-span-5 lg:col-span-5">
-            <p className="hero-brand text-[clamp(3.5rem,10vw,6.5rem)] leading-[0.85] tracking-[0.02em] text-[#faf7f2]">
+            <p className="hero-brand text-[clamp(2.75rem,14vw,6.5rem)] leading-[0.85] tracking-[0.02em] text-[#faf7f2]">
               GULCHU
             </p>
 
-            <div className="mt-5 max-w-md">
-              <h1 className="hero-headline text-[clamp(1.75rem,3.2vw,2.6rem)] leading-snug text-[#faf7f2]">
+            <div className="mt-4 max-w-md sm:mt-5">
+              <h1 className="hero-headline text-[clamp(1.5rem,5vw,2.6rem)] leading-snug text-[#faf7f2]">
                 Finish{" "}
                 <span className="relative inline-block">
                   strong
@@ -332,35 +332,35 @@ const Hero = () => {
                   />
                 </span>
               </h1>
-              <p className="hero-copy mt-4 text-base leading-relaxed text-[#faf7f2]/75 md:text-lg">
+              <p className="hero-copy mt-3 text-sm leading-relaxed text-[#faf7f2]/75 sm:mt-4 sm:text-base md:text-lg">
                 {item.support}
               </p>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
               <Link
                 to="/product"
-                className="hero-copy inline-flex items-center gap-2 rounded-xl bg-[#c62828] px-6 py-3.5 text-sm font-semibold tracking-wide text-[#faf7f2] transition-colors hover:bg-[#9b1c1c]"
+                className="hero-copy inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#c62828] px-6 py-3.5 text-sm font-semibold tracking-wide text-[#faf7f2] transition-colors hover:bg-[#9b1c1c]"
               >
                 Shop products
                 <span aria-hidden>→</span>
               </Link>
               <Link
                 to="/about"
-                className="hero-copy inline-flex items-center rounded-xl border border-[#faf7f2]/40 px-6 py-3.5 text-sm font-medium tracking-wide text-[#faf7f2] transition-colors hover:border-[#faf7f2] hover:bg-[#faf7f2]/10"
+                className="hero-copy inline-flex min-h-12 items-center justify-center rounded-xl border border-[#faf7f2]/40 px-6 py-3.5 text-sm font-medium tracking-wide text-[#faf7f2] transition-colors hover:border-[#faf7f2] hover:bg-[#faf7f2]/10"
               >
                 Our story
               </Link>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-2" role="group" aria-label="Product categories">
+            <div className="mt-6 flex flex-wrap gap-2 sm:mt-8" role="group" aria-label="Product categories">
               {products.map((p, i) => (
                 <button
                   key={p.id}
                   type="button"
                   onClick={() => goTo(i)}
                   aria-pressed={i === currentSlide}
-                  className={`hero-copy rounded-full px-4 py-2 text-xs font-semibold tracking-wide transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c62828] sm:text-sm ${
+                  className={`hero-copy min-h-10 rounded-full px-4 py-2.5 text-xs font-semibold tracking-wide transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c62828] sm:text-sm ${
                     i === currentSlide
                       ? "bg-white text-[#1a1210]"
                       : "bg-white/10 text-white/80 hover:bg-white/18 hover:text-white"

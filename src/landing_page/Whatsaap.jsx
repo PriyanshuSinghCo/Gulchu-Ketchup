@@ -7,12 +7,18 @@ function Whatsaap() {
   )}`;
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 p-3">
-      <a href={href} target="_blank" rel="noopener noreferrer">
+    <div className="fab-safe fixed right-3 z-50 sm:right-4">
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block rounded-xl p-1 active:scale-95"
+        aria-label="Chat on WhatsApp"
+      >
         <img
           src="/whatsapp-icon.jpg"
-          alt="Chat on WhatsApp"
-          className="h-12 w-12 rounded-lg bg-none"
+          alt=""
+          className="h-12 w-12 rounded-lg sm:h-14 sm:w-14"
         />
       </a>
     </div>

@@ -276,14 +276,14 @@ const Navbar = () => {
               setOpenSubMenu(null);
             }}
           />
-          <div className="absolute left-0 right-0 top-16 z-50 mx-3 flex max-h-[80vh] flex-col gap-3 overflow-y-auto rounded-xl border border-[#1a1210]/8 bg-white px-3 py-3 shadow-lg md:hidden">
+          <div className="absolute left-3 right-3 top-[4.25rem] z-50 flex max-h-[min(78vh,640px)] flex-col gap-1 overflow-y-auto overscroll-contain rounded-xl border border-[#1a1210]/8 bg-white px-2 py-3 shadow-lg md:hidden">
             {navLinks.map((link, index) => (
-              <div key={index}>
-                <div className="flex items-center justify-between px-1 py-1">
+              <div key={index} className="border-b border-[#1a1210]/6 last:border-0">
+                <div className="flex items-center justify-between gap-2 px-1 py-1">
                   <NavLink
                     to={link.path}
                     className={({ isActive }) =>
-                      `w-full rounded-md px-2 py-2 text-lg font-bold ${
+                      `min-h-11 flex-1 rounded-md px-3 py-3 text-base font-bold ${
                         isActive ? "text-[#c62828]" : "text-[#1a1210]"
                       }`
                     }
@@ -299,7 +299,7 @@ const Navbar = () => {
                       onClick={() =>
                         setOpenSubMenu(openSubMenu === index ? null : index)
                       }
-                      className="rounded-lg px-3 py-1 text-xl font-bold hover:bg-gray-100 focus:outline-none"
+                      className="flex h-11 w-11 items-center justify-center rounded-lg text-xl font-bold hover:bg-gray-100 focus:outline-none"
                       aria-label="Toggle submenu"
                     >
                       {openSubMenu === index ? "−" : "+"}
@@ -309,8 +309,8 @@ const Navbar = () => {
 
                 {link.submenu && openSubMenu === index && (
                   <div
-                    className={`mt-2 grid gap-2 ${
-                      link.aboutMega ? "grid-cols-1" : "grid-cols-2"
+                    className={`mb-2 grid gap-2 px-1 ${
+                      link.aboutMega ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"
                     }`}
                   >
                     {link.submenu.map((sublink, subIndex) => {
@@ -319,7 +319,7 @@ const Navbar = () => {
                         <NavLink
                           key={subIndex}
                           to={sublink.path}
-                          className="flex items-center gap-3 rounded-md bg-[#faf7f2] px-2.5 py-2.5 text-left text-sm font-semibold text-[#1a1210] hover:bg-[#c62828]/10 hover:text-[#c62828]"
+                          className="flex min-h-12 items-center gap-3 rounded-md bg-[#faf7f2] px-3 py-3 text-left text-sm font-semibold text-[#1a1210] active:bg-[#c62828]/10"
                           onClick={() => {
                             setMobileOpen(false);
                             setOpenSubMenu(null);
@@ -342,7 +342,7 @@ const Navbar = () => {
                               </span>
                             )
                           )}
-                          <span>
+                          <span className="min-w-0">
                             <span className="block leading-snug">{sublink.label}</span>
                             {sublink.desc && (
                               <span className="mt-0.5 block text-xs font-medium text-[#1a1210]/50">
