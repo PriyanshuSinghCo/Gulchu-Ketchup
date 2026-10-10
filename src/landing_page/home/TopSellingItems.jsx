@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
@@ -83,184 +83,132 @@ const topItems = [
   },
 ];
 
-function StarRating({ value }) {
-  return (
-    <div className="flex items-center gap-0.5" aria-label={`${value} out of 5`}>
-      {[1, 2, 3, 4, 5].map((star) => {
-        const filled = value >= star;
-        const half = !filled && value >= star - 0.5;
-        return (
-          <svg
-            key={star}
-            viewBox="0 0 20 20"
-            className={`h-3.5 w-3.5 ${
-              filled || half ? "text-[#c62828]" : "text-[#1a1210]/20"
-            }`}
-            fill="currentColor"
-            aria-hidden
-          >
-            <path d="M10 1.5l2.35 4.76 5.25.76-3.8 3.7.9 5.24L10 13.77l-4.7 2.47.9-5.24-3.8-3.7 5.25-.76L10 1.5z" />
-          </svg>
-        );
-      })}
-    </div>
-  );
-}
-
 function ProductCard({ item }) {
   const { addToCart, items, updateQuantity } = useCart();
-  const [qty, setQty] = useState(1);
 
   const inCart = useMemo(
     () => items.find((cartItem) => cartItem.id === item.id),
     [items, item.id]
   );
 
-  const discount = Math.round(
-    ((item.originalPrice - item.price) / item.originalPrice) * 100
-  );
+  const savings = item.originalPrice - item.price;
+  const discount = Math.round((savings / item.originalPrice) * 100);
 
   const handleAdd = () => {
-    for (let i = 0; i < qty; i += 1) {
-      addToCart({
-        id: item.id,
-        name: item.name,
-        image: item.image,
-        price: item.price,
-        rating: item.rating,
-        reviews: item.reviews,
-      });
-    }
-  };
-
-  const bumpCart = (next) => {
-    if (!inCart) return;
-    updateQuantity(item.id, next);
+    addToCart({
+      id: item.id,
+      name: item.name,
+      image: item.image,
+      price: item.price,
+      rating: item.rating,
+      reviews: item.reviews,
+    });
   };
 
   return (
-    <article className="group flex h-full flex-col border border-[#1a1210]/10 bg-white transition-colors duration-300 hover:border-[#c62828]/35">
-      {/* Media */}
-      <Link to={item.href} className="relative block overflow-hidden bg-[#f3eee8]">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-70"
-          style={{
-            background:
-              "radial-gradient(ellipse at 50% 40%, rgba(198,40,40,0.12) 0%, transparent 65%)",
-          }}
-        />
-        <span className="absolute left-3 top-3 z-[1] hero-copy bg-[#1a1210] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#faf7f2]">
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[#1a1210]/[0.07] bg-white shadow-[0_1px_2px_rgba(26,18,16,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-[#1a1210]/10 hover:shadow-[0_18px_40px_-18px_rgba(90,18,18,0.35)]">
+      {/* Media: multiply blend hides the white photo backgrounds */}
+      <Link
+        to={item.href}
+        className="relative m-2 block overflow-hidden rounded-xl bg-[#f6f1ea]"
+        aria-label={item.name}
+      >
+        <div className="flex aspect-[4/3.6] items-center justify-center p-6">
+          <img
+            src={item.image}
+            alt={item.name}
+            loading="lazy"
+            draggable={false}
+            className="h-full w-auto max-w-full object-contain mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-[1.06]"
+          />
+        </div>
+
+        <span className="hero-copy absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-semibold text-[#1a1210] shadow-sm backdrop-blur">
           {item.tag}
         </span>
         {discount > 0 && (
-          <span className="absolute right-3 top-3 z-[1] hero-copy text-[11px] font-semibold text-[#c62828]">
-            −{discount}%
+          <span className="hero-copy absolute right-3 top-3 rounded-full bg-[#c62828] px-2.5 py-1 text-[11px] font-bold text-white">
+            {discount}% OFF
           </span>
         )}
-        <img
-          src={item.image}
-          alt={item.name}
-          loading="lazy"
-          className="relative z-0 mx-auto h-48 w-auto object-contain py-8 transition-transform duration-500 group-hover:scale-[1.04] sm:h-52"
-          draggable={false}
-        />
       </Link>
 
       {/* Body */}
-      <div className="flex flex-1 flex-col px-4 pb-4 pt-4 sm:px-5">
-        <div className="mb-1 flex items-center justify-between gap-2">
-          <p className="hero-copy text-[11px] font-medium uppercase tracking-[0.18em] text-[#1a1210]/45">
+      <div className="flex flex-1 flex-col px-4 pb-4 pt-2 sm:px-5 sm:pb-5">
+        <div className="flex items-center justify-between gap-2">
+          <span className="hero-copy rounded-md bg-[#f6f1ea] px-2 py-0.5 text-[11px] font-semibold text-[#1a1210]/70">
             {item.size}
-          </p>
-          <div className="flex items-center gap-1.5">
-            <StarRating value={item.rating} />
-            <span className="hero-copy text-xs text-[#1a1210]/45">
-              {item.rating}
-            </span>
-          </div>
+          </span>
+          <span
+            className="hero-copy flex items-center gap-1 text-xs text-[#1a1210]/55"
+            aria-label={`Rated ${item.rating} out of 5 from ${item.reviews} reviews`}
+          >
+            <svg viewBox="0 0 20 20" className="h-3.5 w-3.5 text-[#f2a20c]" fill="currentColor" aria-hidden>
+              <path d="M10 1.5l2.35 4.76 5.25.76-3.8 3.7.9 5.24L10 13.77l-4.7 2.47.9-5.24-3.8-3.7 5.25-.76L10 1.5z" />
+            </svg>
+            <span className="font-semibold text-[#1a1210]">{item.rating}</span>
+            <span>({item.reviews.toLocaleString("en-IN")})</span>
+          </span>
         </div>
 
-        <Link to={item.href}>
-          <h3 className="hero-headline text-xl leading-snug text-[#1a1210] transition-colors hover:text-[#c62828]">
+        <Link to={item.href} className="mt-2.5">
+          <h3 className="hero-copy line-clamp-2 min-h-[2.75rem] text-[17px] font-bold leading-snug text-[#1a1210] transition-colors group-hover:text-[#c62828]">
             {item.name}
           </h3>
         </Link>
-        <p className="hero-copy mt-1 text-xs text-[#1a1210]/45">
-          {item.reviews.toLocaleString()} reviews
-        </p>
 
-        <div className="mt-4 flex items-baseline gap-2">
-          <span className="hero-brand text-2xl leading-none text-[#1a1210]">
+        <div className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+          <span className="hero-copy text-[22px] font-extrabold leading-none tracking-tight text-[#1a1210]">
             ₹{item.price}
           </span>
-          <span className="hero-copy text-sm text-[#1a1210]/35 line-through">
-            ₹{item.originalPrice}
+          <span className="hero-copy text-sm text-[#1a1210]/40">
+            MRP <span className="line-through">₹{item.originalPrice}</span>
           </span>
         </div>
+        {savings > 0 && (
+          <p className="hero-copy mt-1 text-xs font-semibold text-[#1b7a3e]">
+            You save ₹{savings}
+          </p>
+        )}
 
-        {/* Practical controls */}
-        <div className="mt-auto flex items-center gap-2 pt-5">
+        <div className="mt-auto pt-4">
           {inCart ? (
-            <>
-              <div className="flex h-11 flex-1 items-center justify-between border border-[#1a1210]/15">
-                <button
-                  type="button"
-                  aria-label="Decrease quantity"
-                  onClick={() => bumpCart(inCart.quantity - 1)}
-                  className="hero-copy h-full px-3 text-lg text-[#1a1210] transition-colors hover:bg-[#f3eee8]"
-                >
-                  −
-                </button>
-                <span className="hero-copy text-sm font-semibold tabular-nums">
-                  {inCart.quantity}
-                </span>
-                <button
-                  type="button"
-                  aria-label="Increase quantity"
-                  onClick={() => bumpCart(inCart.quantity + 1)}
-                  className="hero-copy h-full px-3 text-lg text-[#1a1210] transition-colors hover:bg-[#f3eee8]"
-                >
-                  +
-                </button>
-              </div>
-              <Link
-                to="/cart"
-                className="hero-copy inline-flex h-11 items-center justify-center border border-[#1a1210]/15 px-4 text-xs font-semibold uppercase tracking-wider text-[#1a1210] transition-colors hover:border-[#c62828] hover:text-[#c62828]"
-              >
-                Cart
-              </Link>
-            </>
-          ) : (
-            <>
-              <div className="flex h-11 items-center border border-[#1a1210]/15">
-                <button
-                  type="button"
-                  aria-label="Decrease quantity"
-                  onClick={() => setQty((q) => Math.max(1, q - 1))}
-                  className="hero-copy h-full px-2.5 text-lg text-[#1a1210] transition-colors hover:bg-[#f3eee8]"
-                >
-                  −
-                </button>
-                <span className="hero-copy w-7 text-center text-sm font-semibold tabular-nums">
-                  {qty}
-                </span>
-                <button
-                  type="button"
-                  aria-label="Increase quantity"
-                  onClick={() => setQty((q) => Math.min(10, q + 1))}
-                  className="hero-copy h-full px-2.5 text-lg text-[#1a1210] transition-colors hover:bg-[#f3eee8]"
-                >
-                  +
-                </button>
-              </div>
+            <div className="flex h-11 items-center justify-between overflow-hidden rounded-xl bg-[#c62828] text-white">
               <button
                 type="button"
-                onClick={handleAdd}
-                className="hero-copy h-11 flex-1 rounded-md bg-[#c62828] text-xs font-semibold uppercase tracking-wider text-[#faf7f2] transition-colors hover:bg-[#9b1c1c]"
+                aria-label="Decrease quantity"
+                onClick={() => updateQuantity(item.id, inCart.quantity - 1)}
+                className="flex h-full w-12 items-center justify-center text-xl font-semibold transition-colors hover:bg-black/10"
               >
-                Add to cart
+                −
               </button>
-            </>
+              <Link
+                to="/cart"
+                className="hero-copy text-sm font-bold tabular-nums"
+                aria-label={`${inCart.quantity} in cart, view cart`}
+              >
+                {inCart.quantity} in cart
+              </Link>
+              <button
+                type="button"
+                aria-label="Increase quantity"
+                onClick={() => updateQuantity(item.id, inCart.quantity + 1)}
+                className="flex h-full w-12 items-center justify-center text-xl font-semibold transition-colors hover:bg-black/10"
+              >
+                +
+              </button>
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={handleAdd}
+              className="hero-copy flex h-11 w-full items-center justify-center gap-2 rounded-xl border-2 border-[#c62828] text-sm font-bold text-[#c62828] transition-colors hover:bg-[#c62828] hover:text-white active:scale-[0.98]"
+            >
+              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h2l2.4 11.2a1.5 1.5 0 001.5 1.2h8.7a1.5 1.5 0 001.5-1.1L21 8H6.2M9 20.5h.01M17 20.5h.01" />
+              </svg>
+              Add to cart
+            </button>
           )}
         </div>
       </div>
@@ -299,7 +247,7 @@ const TopSellingItems = () => {
             <button
               ref={prevRef}
               type="button"
-              className="hero-copy flex h-11 w-11 items-center justify-center border border-[#1a1210]/15 text-[#1a1210] transition-colors hover:border-[#c62828] hover:text-[#c62828]"
+              className="hero-copy flex h-11 w-11 items-center justify-center rounded-full border border-[#1a1210]/15 bg-white text-[#1a1210] transition-colors hover:border-[#c62828] hover:bg-[#c62828] hover:text-white disabled:opacity-40"
               aria-label="Previous products"
             >
               ←
@@ -307,14 +255,14 @@ const TopSellingItems = () => {
             <button
               ref={nextRef}
               type="button"
-              className="hero-copy flex h-11 w-11 items-center justify-center border border-[#1a1210]/15 text-[#1a1210] transition-colors hover:border-[#c62828] hover:text-[#c62828]"
+              className="hero-copy flex h-11 w-11 items-center justify-center rounded-full border border-[#1a1210]/15 bg-white text-[#1a1210] transition-colors hover:border-[#c62828] hover:bg-[#c62828] hover:text-white disabled:opacity-40"
               aria-label="Next products"
             >
               →
             </button>
             <Link
               to="/product"
-              className="hero-copy ml-1 hidden items-center gap-2 border border-[#1a1210]/15 px-5 py-2.5 text-sm font-semibold text-[#1a1210] transition-colors hover:border-[#c62828] hover:text-[#c62828] sm:inline-flex"
+              className="hero-copy ml-1 hidden h-11 items-center gap-2 rounded-full bg-[#1a1210] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#c62828] sm:inline-flex"
             >
               View all
             </Link>
@@ -324,6 +272,7 @@ const TopSellingItems = () => {
         <Swiper
           modules={[Navigation, Pagination]}
           spaceBetween={20}
+          className="!-mx-2 !px-2 !pb-8 !pt-2"
           onBeforeInit={(swiper) => {
             swiper.params.navigation.prevEl = prevRef.current;
             swiper.params.navigation.nextEl = nextRef.current;
@@ -335,8 +284,8 @@ const TopSellingItems = () => {
           }}
           pagination={{ clickable: true, el: paginationRef.current }}
           breakpoints={{
-            320: { slidesPerView: 1.05, spaceBetween: 14 },
-            640: { slidesPerView: 2, spaceBetween: 18 },
+            320: { slidesPerView: 1.25, spaceBetween: 14 },
+            520: { slidesPerView: 2, spaceBetween: 16 },
             1024: { slidesPerView: 3, spaceBetween: 20 },
             1280: { slidesPerView: 4, spaceBetween: 22 },
           }}
@@ -358,13 +307,13 @@ const TopSellingItems = () => {
 
         <div
           ref={paginationRef}
-          className="topselling-pagination mt-10 flex justify-center gap-2"
+          className="topselling-pagination mt-4 flex justify-center gap-2"
         />
 
         <div className="mt-8 text-center sm:hidden">
           <Link
             to="/product"
-            className="hero-copy inline-flex border border-[#1a1210]/15 px-5 py-2.5 text-sm font-semibold text-[#1a1210]"
+            className="hero-copy inline-flex h-11 items-center rounded-full bg-[#1a1210] px-6 text-sm font-semibold text-white"
           >
             View all products
           </Link>

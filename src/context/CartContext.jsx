@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, useState, useCallback } from 'react';
 
 // Cart context
 const CartContext = createContext();
@@ -110,9 +110,13 @@ export const CartProvider = ({ children }) => {
     return total + parsePrice(item.price) * (item.quantity || 1);
   }, 0);
 
+  const [lastAdded, setLastAdded] = useState(null);
+  const dismissLastAdded = useCallback(() => setLastAdded(null), []);
+
   // Add to cart function
   const addToCart = (product) => {
     dispatch({ type: 'ADD_TO_CART', payload: product });
+    setLastAdded({ key: Date.now(), name: product.name, image: product.image });
   };
 
   // Remove from cart function
@@ -142,6 +146,8 @@ export const CartProvider = ({ children }) => {
     removeFromCart,
     updateQuantity,
     clearCart,
+    lastAdded,
+    dismissLastAdded,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

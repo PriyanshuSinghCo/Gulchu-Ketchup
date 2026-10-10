@@ -6,21 +6,14 @@ export function sendToWhatsApp(message) {
   window.open(url, "_blank", "noopener,noreferrer");
 }
 
-export function formatContactWhatsAppMessage({
-  name,
-  email,
-  phone,
-  address,
-  message,
-}) {
+/** fields: array of [label, value]; empty values are skipped */
+export function formatContactWhatsAppMessage({ topic, fields }) {
   return [
-    "*New Contact Enquiry — Gulchu*",
+    `*New ${topic} Enquiry — Gulchu*`,
     "",
-    `*Name:* ${name}`,
-    `*Email:* ${email}`,
-    `*Phone:* ${phone}`,
-    `*Address:* ${address}`,
-    `*Message:* ${message}`,
+    ...fields
+      .filter(([, value]) => value)
+      .map(([label, value]) => `*${label}:* ${value}`),
   ].join("\n");
 }
 

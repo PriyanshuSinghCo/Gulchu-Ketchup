@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "../../context/CartContext";
 
 const productData = [
@@ -117,128 +117,133 @@ const priceRanges = [
 
 function ProductCard({ product, index }) {
   const { addToCart, items, updateQuantity } = useCart();
-  const [added, setAdded] = useState(false);
   const productId = product.name.toLowerCase().replace(/\s+/g, "-");
   const inCart = items.find((item) => item.id === productId);
+  const extraSizes = product.variants.length - 2;
 
-  const handleAdd = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleAdd = () => {
     addToCart({
       id: productId,
       name: product.name,
       image: product.image,
       price: product.price,
-      rating: 4.6,
-      reviews: 120,
     });
-    setAdded(true);
-    window.setTimeout(() => setAdded(false), 1600);
   };
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ delay: Math.min(index * 0.05, 0.35), duration: 0.4 }}
-      className="group flex h-full flex-col border border-[#1a1210]/10 bg-white transition-colors hover:border-[#c62828]/35"
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 18, scale: 0.98 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.18 } }}
+      transition={{ delay: Math.min(index * 0.04, 0.3), duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      className="h-full"
     >
-      <Link to={product.path} className="relative block overflow-hidden bg-[#f3eee8]">
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse at 50% 35%, rgba(198,40,40,0.1) 0%, transparent 65%)",
-          }}
-        />
-        <span className="absolute left-3 top-3 z-[1] hero-copy bg-[#1a1210] px-2 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[#faf7f2]">
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[#1a1210]/[0.07] bg-white shadow-[0_1px_2px_rgba(26,18,16,0.04)] transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-[#1a1210]/10 hover:shadow-[0_18px_40px_-18px_rgba(90,18,18,0.35)]">
+      {/* Media */}
+      <Link
+        to={product.path}
+        className="relative m-1.5 block overflow-hidden rounded-xl bg-[#f6f1ea] sm:m-2"
+        aria-label={product.name}
+      >
+        <div className="flex aspect-square items-center justify-center p-5 sm:aspect-[4/3.6] sm:p-6">
+          <img
+            src={product.image}
+            alt={product.name}
+            loading="lazy"
+            draggable={false}
+            className="h-full w-auto max-w-full object-contain mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-[1.06]"
+          />
+        </div>
+
+        <span className="hero-copy absolute left-2.5 top-2.5 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-semibold text-[#1a1210] shadow-sm sm:left-3 sm:top-3 sm:text-[11px]">
           {product.category}
         </span>
-        <img
-          src={product.image}
-          alt={product.name}
-          loading="lazy"
-          className="relative z-0 mx-auto h-48 w-auto object-contain py-6 transition-transform duration-500 group-hover:scale-[1.04] sm:h-52"
-          draggable={false}
-        />
+
+        <span className="hero-copy absolute inset-x-3 bottom-3 hidden translate-y-2 items-center justify-center rounded-full bg-[#1a1210]/85 py-2 text-xs font-semibold text-white opacity-0 backdrop-blur transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 sm:flex">
+          View details →
+        </span>
       </Link>
 
-      <div className="flex flex-1 flex-col px-4 pb-4 pt-4 sm:px-5">
-        <p className="hero-copy text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1a1210]/45">
-          {product.variants.join(" · ")}
-        </p>
-        <Link to={product.path}>
-          <h2 className="hero-headline mt-1.5 text-xl leading-snug text-[#1a1210] transition-colors hover:text-[#c62828]">
+      {/* Body */}
+      <div className="flex flex-1 flex-col px-3 pb-3 pt-1.5 sm:px-5 sm:pb-5 sm:pt-2">
+        <div className="flex flex-wrap gap-1">
+          {product.variants.slice(0, 2).map((size) => (
+            <span
+              key={size}
+              className="hero-copy rounded-md bg-[#f6f1ea] px-1.5 py-0.5 text-[10px] font-semibold text-[#1a1210]/70 sm:px-2 sm:text-[11px]"
+            >
+              {size}
+            </span>
+          ))}
+          {extraSizes > 0 && (
+            <span className="hero-copy rounded-md px-1 py-0.5 text-[10px] font-semibold text-[#1a1210]/45 sm:text-[11px]">
+              +{extraSizes} more
+            </span>
+          )}
+        </div>
+
+        <Link to={product.path} className="mt-2">
+          <h2 className="hero-copy line-clamp-2 min-h-[2.5rem] text-[15px] font-bold leading-snug text-[#1a1210] transition-colors group-hover:text-[#c62828] sm:min-h-[2.75rem] sm:text-[17px]">
             {product.name}
           </h2>
         </Link>
-        <p className="hero-copy mt-2 line-clamp-2 text-sm leading-relaxed text-[#1a1210]/60">
+        <p className="hero-copy mt-1.5 hidden text-sm leading-relaxed text-[#1a1210]/55 sm:line-clamp-2">
           {product.description}
         </p>
 
-        <div className="mt-4 flex items-baseline gap-2">
-          <span className="hero-brand text-2xl leading-none text-[#1a1210]">
+        <div className="mt-3 flex items-baseline gap-1.5">
+          <span className="hero-copy text-xs text-[#1a1210]/45">from</span>
+          <span className="hero-copy text-xl font-extrabold leading-none tracking-tight text-[#1a1210] sm:text-[22px]">
             ₹{product.price}
           </span>
-          <span className="hero-copy text-xs text-[#1a1210]/45">from</span>
         </div>
 
-        <div className="mt-auto flex items-center gap-2 pt-5">
+        <div className="mt-auto pt-3 sm:pt-4">
           {inCart ? (
-            <>
-              <div className="flex h-10 flex-1 items-center justify-between border border-[#1a1210]/15">
-                <button
-                  type="button"
-                  aria-label="Decrease quantity"
-                  onClick={() => updateQuantity(productId, inCart.quantity - 1)}
-                  className="hero-copy h-full px-3 text-lg hover:bg-[#f3eee8]"
-                >
-                  −
-                </button>
-                <span className="hero-copy text-sm font-bold tabular-nums">
-                  {inCart.quantity}
-                </span>
-                <button
-                  type="button"
-                  aria-label="Increase quantity"
-                  onClick={() => updateQuantity(productId, inCart.quantity + 1)}
-                  className="hero-copy h-full px-3 text-lg hover:bg-[#f3eee8]"
-                >
-                  +
-                </button>
-              </div>
+            <div className="flex h-10 items-center justify-between overflow-hidden rounded-xl bg-[#c62828] text-white sm:h-11">
+              <button
+                type="button"
+                aria-label="Decrease quantity"
+                onClick={() => updateQuantity(productId, inCart.quantity - 1)}
+                className="flex h-full w-10 items-center justify-center text-xl font-semibold transition-colors hover:bg-black/10 sm:w-12"
+              >
+                −
+              </button>
               <Link
                 to="/cart"
-                className="hero-copy inline-flex h-10 items-center border border-[#1a1210]/15 px-3 text-xs font-bold uppercase tracking-wider text-[#1a1210] hover:border-[#c62828] hover:text-[#c62828]"
+                className="hero-copy text-xs font-bold tabular-nums sm:text-sm"
+                aria-label={`${inCart.quantity} in cart, view cart`}
               >
-                Cart
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link
-                to={product.path}
-                className="hero-copy inline-flex h-10 items-center border border-[#1a1210]/15 px-3 text-xs font-bold uppercase tracking-wider text-[#1a1210] transition-colors hover:border-[#c62828] hover:text-[#c62828]"
-              >
-                Details
+                {inCart.quantity}
+                <span className="hidden sm:inline"> in cart</span>
               </Link>
               <button
                 type="button"
-                onClick={handleAdd}
-                className={`hero-copy h-10 flex-1 rounded-md text-xs font-bold uppercase tracking-wider transition-colors ${
-                  added
-                    ? "bg-[#2e7d32] text-white"
-                    : "bg-[#c62828] text-[#faf7f2] hover:bg-[#9b1c1c]"
-                }`}
+                aria-label="Increase quantity"
+                onClick={() => updateQuantity(productId, inCart.quantity + 1)}
+                className="flex h-full w-10 items-center justify-center text-xl font-semibold transition-colors hover:bg-black/10 sm:w-12"
               >
-                {added ? "Added" : "Add to cart"}
+                +
               </button>
-            </>
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={handleAdd}
+              className="hero-copy flex h-10 w-full items-center justify-center gap-2 rounded-xl border-2 border-[#c62828] text-xs font-bold text-[#c62828] transition-colors hover:bg-[#c62828] hover:text-white active:scale-[0.98] sm:h-11 sm:text-sm"
+            >
+              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h2l2.4 11.2a1.5 1.5 0 001.5 1.2h8.7a1.5 1.5 0 001.5-1.1L21 8H6.2M9 20.5h.01M17 20.5h.01" />
+              </svg>
+              <span className="sm:hidden">Add</span>
+              <span className="hidden sm:inline">Add to cart</span>
+            </button>
           )}
         </div>
       </div>
-    </motion.article>
+    </article>
+    </motion.div>
   );
 }
 
@@ -309,7 +314,7 @@ function AllProduct() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.08, duration: 0.45 }}
-          className="mb-8 border border-[#1a1210]/10 bg-white p-4 sm:p-5"
+          className="mb-8 rounded-2xl border border-[#1a1210]/[0.07] bg-white p-4 shadow-[0_1px_2px_rgba(26,18,16,0.04)] sm:p-5"
         >
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div className="flex-1">
@@ -325,7 +330,7 @@ function AllProduct() {
                 placeholder="Search by name or description…"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="hero-copy w-full border border-[#1a1210]/15 bg-[#faf7f2] px-4 py-2.5 text-sm text-[#1a1210] outline-none focus:border-[#c62828]"
+                className="hero-copy w-full rounded-xl border border-[#1a1210]/10 bg-[#faf7f2] px-4 py-2.5 text-sm text-[#1a1210] outline-none transition-colors focus:border-[#c62828] focus:bg-white"
               />
             </div>
 
@@ -340,7 +345,7 @@ function AllProduct() {
                 id="product-sort"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="hero-copy w-full border border-[#1a1210]/15 bg-[#faf7f2] px-4 py-2.5 text-sm text-[#1a1210] outline-none focus:border-[#c62828]"
+                className="hero-copy w-full rounded-xl border border-[#1a1210]/10 bg-[#faf7f2] px-4 py-2.5 text-sm text-[#1a1210] outline-none transition-colors focus:border-[#c62828] focus:bg-white"
               >
                 <option value="name">Name (A–Z)</option>
                 <option value="price-asc">Price (Low–High)</option>
@@ -404,13 +409,15 @@ function AllProduct() {
 
         {/* Grid */}
         {filteredAndSortedProducts.length > 0 ? (
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {filteredAndSortedProducts.map((product, index) => (
-              <ProductCard key={product.name} product={product} index={index} />
-            ))}
-          </div>
+          <motion.div layout className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
+            <AnimatePresence initial={false}>
+              {filteredAndSortedProducts.map((product, index) => (
+                <ProductCard key={product.name} product={product} index={index} />
+              ))}
+            </AnimatePresence>
+          </motion.div>
         ) : (
-          <div className="border border-[#1a1210]/10 bg-white px-6 py-16 text-center">
+          <div className="rounded-2xl border border-[#1a1210]/[0.07] bg-white px-6 py-16 text-center">
             <h3 className="hero-headline text-2xl text-[#1a1210]">
               No products found
             </h3>
@@ -420,7 +427,7 @@ function AllProduct() {
             <button
               type="button"
               onClick={clearFilters}
-              className="hero-copy mt-6 bg-[#c62828] px-6 py-2.5 text-sm font-bold text-white hover:bg-[#9b1c1c]"
+              className="hero-copy mt-6 rounded-full bg-[#c62828] px-6 py-2.5 text-sm font-bold text-white hover:bg-[#9b1c1c]"
             >
               Clear filters
             </button>

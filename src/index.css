@@ -66,6 +66,27 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
+a[href],
+button,
+select,
+summary,
+label[for],
+[role="button"],
+[role="tab"],
+input[type="checkbox"],
+input[type="radio"],
+input[type="submit"],
+input[type="file"] {
+  cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled="true"],
+select:disabled,
+input:disabled {
+  cursor: not-allowed;
+}
+
 h1,
 h2,
 h3,
@@ -104,6 +125,11 @@ select {
   font-weight: 500;
 }
 
+.nav-font,
+.nav-font *:not(.hero-brand) {
+  font-family: "DM Sans", sans-serif;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -136,8 +162,13 @@ select {
   background-color: #5a1212;
 }
 
+.product-marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
+}
+
 .product-marquee-track {
-  animation: product-marquee 28s linear infinite;
+  animation: product-marquee 60s linear infinite;
   will-change: transform;
 }
 

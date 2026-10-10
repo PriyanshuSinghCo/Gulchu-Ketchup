@@ -18,19 +18,19 @@ function ProductItem({ product }) {
   return (
     <Link
       to={product.path}
-      className="product-marquee-item group flex w-[58px] shrink-0 flex-col items-center gap-1 sm:w-[62px]"
+      className="product-marquee-item group flex w-[68px] shrink-0 flex-col items-center gap-0.5 sm:w-[74px]"
       aria-label={product.label}
     >
-      <span className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-white/95 shadow-[0_1px_0_rgba(0,0,0,0.12)] transition-transform duration-300 active:scale-95 group-hover:scale-105 sm:h-10 sm:w-10">
+      <span className="flex h-7 w-7 items-center justify-center overflow-hidden rounded-full bg-white/95 shadow-[0_1px_0_rgba(0,0,0,0.12)] transition-transform duration-300 active:scale-95 group-hover:scale-105 sm:h-8 sm:w-8">
         <img
           src={product.image}
           alt=""
-          className="h-6 w-6 object-contain sm:h-7 sm:w-7"
+          className="h-5 w-5 object-contain sm:h-6 sm:w-6"
           loading="lazy"
           draggable={false}
         />
       </span>
-      <span className="hero-copy max-w-[58px] text-center text-[9px] font-semibold leading-[1.15] tracking-wide text-white/90 sm:max-w-[62px] sm:text-[10px]">
+      <span className="hero-copy max-w-full truncate whitespace-nowrap text-center text-[9px] font-semibold leading-none tracking-wide text-white/90 sm:text-[10px]">
         {product.label}
       </span>
     </Link>
@@ -39,21 +39,27 @@ function ProductItem({ product }) {
 
 function ProductCategoryBar() {
   const [paused, setPaused] = useState(false);
-  const loop = [...products, ...products];
+  const group = [...products, ...products, ...products];
 
   return (
     <div
-      className={`product-marquee w-full overflow-hidden border-t border-white/15 ${paused ? "is-paused" : ""}`}
+      className={`product-marquee relative w-full overflow-hidden border-t border-white/15 ${paused ? "is-paused" : ""}`}
       style={{ backgroundColor: "#5a1212" }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onTouchStart={() => setPaused(true)}
       onTouchEnd={() => setPaused(false)}
     >
-      <div className="mx-auto w-full max-w-7xl px-2 py-1.5 sm:px-4 sm:py-2 lg:px-6">
-        <div className="product-marquee-track flex w-max items-center gap-2.5 sm:gap-3">
-          {loop.map((product, index) => (
-            <ProductItem key={`${product.path}-${index}`} product={product} />
+      <div className="product-marquee-mask py-1 sm:py-1.5">
+        <div className="product-marquee-track flex w-max items-center">
+          {[0, 1].map((copy) => (
+            <div key={copy} className="flex shrink-0 items-center" aria-hidden={copy === 1}>
+              {group.map((product, index) => (
+                <div key={`${copy}-${index}`} className="shrink-0 pr-2 sm:pr-3">
+                  <ProductItem product={product} />
+                </div>
+              ))}
+            </div>
           ))}
         </div>
       </div>

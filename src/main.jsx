@@ -28,13 +28,21 @@ import GoToTop from './landing_page/GoToTop';
 import CartPage from './landing_page/cart/CartPage';
 import CheckoutPage from './landing_page/checkout/CheckoutPage';
 import { CartProvider } from './context/CartContext';
+import RouteSeo from './landing_page/RouteSeo';
+import { MotionConfig } from 'framer-motion';
+import { ScrollToTop, PageTransition, ScrollProgress, CartToast } from './landing_page/SiteMotion';
 
 createRoot(document.getElementById("root")).render(
       <CartProvider>
         <BrowserRouter>
+          <MotionConfig reducedMotion="user">
+          <RouteSeo />
+          <ScrollToTop />
+          <ScrollProgress />
           <div className="flex min-h-dvh w-full max-w-full min-w-0 flex-col overflow-x-clip">
             <Navbar />
             <main className="w-full max-w-full min-w-0 flex-1 overflow-x-clip">
+              <PageTransition>
               <Routes>
                 <Route path="/" element={<HomePage />}></Route>
                 <Route path="/home" element={<HomePage />}></Route>
@@ -61,10 +69,13 @@ createRoot(document.getElementById("root")).render(
                 <Route path="/checkout" element={<CheckoutPage />}></Route>
                 <Route path="/*" element={<PageNotFound />}></Route>
               </Routes>
+              </PageTransition>
             </main>
             <GoToTop />
+            <CartToast />
             <Footer />
           </div>
+          </MotionConfig>
         </BrowserRouter>
       </CartProvider>
 );

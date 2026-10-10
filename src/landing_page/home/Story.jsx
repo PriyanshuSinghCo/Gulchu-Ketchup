@@ -1,159 +1,146 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+
+const highlights = [
+  {
+    year: "2023",
+    title: "The Spark",
+    description: "A vision to redefine authentic homemade taste.",
+  },
+  {
+    year: "2024",
+    title: "The Craft",
+    description: "Perfecting recipes with 100% natural ingredients.",
+  },
+  {
+    year: "Next",
+    title: "The Expansion",
+    description: "Bringing Gulchu to every dining table.",
+  },
+];
+
+const stats = [
+  { number: "100%", label: "Natural" },
+  { number: "0%", label: "Preservatives" },
+  { number: "50+", label: "Recipes tested" },
+];
+
+const ease = [0.22, 1, 0.36, 1];
 
 const OurStory = () => {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-
-  const storyData = {
-    title: "Our Journey",
-    subtitle: "Crafting Flavors, Creating Memories",
-    description:
-      "It all started with a simple belief: food should be real, fresh, and bursting with flavor. From a small kitchen experiment to a brand loved by many, Gulchu is a testament to passion and quality. We don't just make condiments; we craft experiences that bring families together.",
-    highlights: [
-      {
-        year: "2023",
-        title: "The Spark",
-        description: "A vision to redefine authentic homemade taste.",
-      },
-      {
-        year: "2024",
-        title: "The Craft",
-        description: "Perfecting recipes with 100% natural ingredients.",
-      },
-      {
-        year: "Future",
-        title: "The Expansion",
-        description: "Bringing Gulchu to every dining table.",
-      },
-    ],
-    stats: [
-      { number: "100%", label: "Natural" },
-      { number: "0%", label: "Preservatives" },
-      { number: "50+", label: "Recipes Tested" },
-    ],
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.2 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
-
   return (
-    <section className="relative w-full py-24 px-6 md:px-12 lg:px-20 overflow-hidden">
-      {/* Background with Parallax-like feel */}
-      <div
-        className="absolute inset-0 bg-cover bg-fixed bg-center"
-        style={{ backgroundImage: "url('/OurStory.png')" }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/90" />
-
-      <div className="relative z-10 max-w-7xl mx-auto">
+    <section className="relative w-full overflow-hidden bg-[#f6f1ea] py-16 md:py-24">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 lg:px-12">
+        {/* Image card */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid lg:grid-cols-2 gap-16 items-center"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.65, ease }}
+          className="relative"
         >
-          {/* Left Column: Narrative */}
-          <div className="text-left space-y-8">
-            <motion.div variants={itemVariants}>
-              <h2 className="text-orange-500 font-bold tracking-widest uppercase text-sm mb-2">
-                {storyData.title}
-              </h2>
-              <h3 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
-                {storyData.subtitle}
-              </h3>
-            </motion.div>
-
-            <motion.p
-              variants={itemVariants}
-              className="text-lg text-gray-300 leading-relaxed font-light"
-            >
-              {storyData.description}
-            </motion.p>
-
-            {/* Stats Row */}
-            <motion.div
-              variants={itemVariants}
-              className="grid grid-cols-3 gap-6 pt-6 border-t border-white/10"
-            >
-              {storyData.stats.map((stat, index) => (
-                <div key={index} className="text-left">
-                  <div className="text-3xl font-bold text-white mb-1">
-                    {stat.number}
-                  </div>
-                  <div className="text-sm text-gray-400 uppercase tracking-wider">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-
-            <motion.div variants={itemVariants} className="pt-4">
-              <button className="group relative px-8 py-3 bg-white text-black font-bold rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-                <span className="relative z-10 flex items-center gap-2">
-                  Read Full Story
-                  <svg
-                    className="w-4 h-4 transition-transform group-hover:translate-x-1"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </motion.div>
+          <div className="overflow-hidden rounded-3xl border border-[#1a1210]/[0.07] bg-white p-2 shadow-[0_30px_60px_-35px_rgba(90,18,18,0.5)]">
+            <img
+              src="/OurStory.png"
+              alt="Gulchu Tomato Ketchup bottles"
+              loading="lazy"
+              draggable={false}
+              className="aspect-[4/3.6] w-full rounded-2xl object-cover"
+            />
           </div>
 
-          {/* Right Column: Timeline Cards */}
-          <div className="space-y-6">
-            {storyData.highlights.map((item, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                onHoverStart={() => setHoveredIndex(index)}
-                onHoverEnd={() => setHoveredIndex(null)}
-                className={`relative p-8 rounded-2xl border transition-all duration-300 ${hoveredIndex === index
-                    ? "bg-white/10 border-orange-500/50 scale-105 shadow-2xl"
-                    : "bg-white/5 border-white/10 hover:bg-white/10"
-                  } backdrop-blur-md`}
-              >
-                <div className="flex items-start gap-6">
-                  <div className="flex-shrink-0">
-                    <span className="block text-4xl font-black text-transparent bg-clip-text bg-gradient-to-br from-orange-400 to-red-600 opacity-80">
-                      {item.year}
-                    </span>
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-bold text-white mb-2">
-                      {item.title}
-                    </h4>
-                    <p className="text-gray-400 text-sm leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
+          <div className="absolute -bottom-5 left-5 flex items-center gap-3 rounded-2xl border border-[#1a1210]/[0.07] bg-white px-4 py-3 shadow-[0_16px_34px_-18px_rgba(26,18,16,0.35)] sm:left-8">
+            <img src="/logo2.jpeg" alt="" className="h-10 w-10 rounded-full object-cover" />
+            <div>
+              <p className="hero-copy text-sm font-bold text-[#1a1210]">Since 2023</p>
+              <p className="hero-copy text-xs text-[#1a1210]/55">Itkhori, Chatra · Jharkhand</p>
+            </div>
+          </div>
+
+          <span className="hero-copy absolute right-5 top-5 rounded-full bg-[#c62828] px-3 py-1 text-xs font-bold text-white shadow-md">
+            100% Natural
+          </span>
+        </motion.div>
+
+        {/* Narrative */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, delay: 0.1, ease }}
+          className="pt-4 lg:pt-0"
+        >
+          <span className="hero-copy inline-flex items-center gap-2 rounded-full bg-[#c62828]/[0.08] px-3 py-1 text-xs font-semibold text-[#c62828]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#c62828]" aria-hidden />
+            Our journey
+          </span>
+
+          <h2 className="hero-headline mt-5 text-[clamp(2.2rem,4.4vw,3.4rem)] leading-[1.08] tracking-tight text-[#1a1210]">
+            Crafting flavors,
+            <br />
+            <span className="text-[#c62828]">creating memories.</span>
+          </h2>
+
+          <p className="hero-copy mt-5 max-w-xl text-base leading-relaxed text-[#1a1210]/60 md:text-lg">
+            It all started with a simple belief: food should be real, fresh, and bursting with flavor.
+            From a small kitchen experiment to a brand loved by many, Gulchu is a testament to passion
+            and quality—condiments that bring families together.
+          </p>
+
+          <dl className="mt-8 grid max-w-xl grid-cols-3 divide-x divide-[#1a1210]/10 rounded-2xl border border-[#1a1210]/[0.07] bg-white py-4">
+            {stats.map((stat) => (
+              <div key={stat.label} className="px-3 text-center">
+                <dd className="hero-copy text-2xl font-extrabold tracking-tight text-[#1a1210]">
+                  {stat.number}
+                </dd>
+                <dt className="hero-copy mt-0.5 text-xs font-medium text-[#1a1210]/50">{stat.label}</dt>
+              </div>
             ))}
+          </dl>
+
+          <ol className="mt-4 grid gap-3 sm:grid-cols-3">
+            {highlights.map((item, index) => {
+              const isNext = index === highlights.length - 1;
+              return (
+                <li
+                  key={item.title}
+                  className={`rounded-2xl border p-4 transition-colors ${
+                    isNext
+                      ? "border-dashed border-[#1a1210]/15 bg-transparent"
+                      : "border-[#1a1210]/[0.07] bg-white hover:border-[#c62828]/25"
+                  }`}
+                >
+                  <span
+                    className={`hero-copy inline-flex rounded-full px-2.5 py-0.5 text-[11px] font-bold ${
+                      isNext ? "bg-[#1a1210]/[0.06] text-[#1a1210]/60" : "bg-[#c62828] text-white"
+                    }`}
+                  >
+                    {item.year}
+                  </span>
+                  <h3 className="hero-copy mt-2.5 text-sm font-bold text-[#1a1210]">{item.title}</h3>
+                  <p className="hero-copy mt-1 text-xs leading-relaxed text-[#1a1210]/55">
+                    {item.description}
+                  </p>
+                </li>
+              );
+            })}
+          </ol>
+
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <Link
+              to="/about/company"
+              className="hero-copy group inline-flex h-12 items-center gap-2 rounded-full bg-[#c62828] px-7 text-sm font-semibold text-white shadow-[0_10px_24px_-12px_rgba(198,40,40,0.8)] transition-colors hover:bg-[#9b1c1c]"
+            >
+              Read our story
+              <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+            </Link>
+            <Link
+              to="/about/director"
+              className="hero-copy inline-flex h-12 items-center rounded-full border border-[#1a1210]/15 bg-white px-6 text-sm font-semibold text-[#1a1210] transition-colors hover:border-[#c62828] hover:text-[#c62828]"
+            >
+              Our vision
+            </Link>
           </div>
         </motion.div>
       </div>
