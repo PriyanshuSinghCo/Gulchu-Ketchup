@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { productDetails } from "../data/productDetails";
 
 const SITE_URL = "https://www.gulchu.com";
 const DEFAULT_TITLE = "Gulchu – Tomato Ketchup, Sauces & Pickles | Kaushik Agro Food";
@@ -89,9 +90,89 @@ const pages = {
   "/checkout": { title: "Checkout | Gulchu", noindex: true },
 };
 
+const DEFAULT_IMAGE = { url: `${SITE_URL}/og-image.jpg`, type: "image/jpeg", width: "1200", height: "630" };
+
+const productsByPath = Object.fromEntries(productDetails.map((p) => [p.path, p]));
+
+for (const product of productDetails) {
+  const prices = product.variants.map((v) => v.price);
+  const sizes = product.variants
+    .slice(0, 3)
+    .map((v) => v.size.replace(/\s*\(.*\)$/, ""))
+    .join(", ");
+  const page = pages[product.path] || {};
+  page.title = `Gulchu ${product.name} – ${sizes} | Order Online`;
+  page.description = `${page.description || product.tagline}. Price from ₹${Math.min(...prices)}. Order on WhatsApp.`.replace(
+    /\.\./g,
+    "."
+  );
+  pages[product.path] = page;
+}
+
+const sectionCrumbs = {
+  "/product": ["Products", "/product"],
+  "/about": ["About", "/about"],
+};
+
+function breadcrumbsFor(pathname, title) {
+  if (pathname === "/" || pathname === "/home") return null;
+  const crumbs = [["Home", "/"]];
+  const section = Object.keys(sectionCrumbs).find((s) => pathname.startsWith(`${s}/`));
+  if (section) crumbs.push(sectionCrumbs[section]);
+  crumbs.push([title.split(/ [–|] /)[0].replace(/^Gulchu /, ""), pathname]);
+
+  return {
+    "@type": "BreadcrumbList",
+    itemListElement: crumbs.map(([name, path], index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name,
+      item: SITE_URL + path,
+    })),
+  };
+}
+
+function productSchema(product, url) {
+  const prices = product.variants.map((v) => v.price);
+  return {
+    "@type": "Product",
+    name: `Gulchu ${product.name}`,
+    description: product.description,
+    image: SITE_URL + product.image,
+    url,
+    category: product.category,
+    brand: { "@type": "Brand", name: "Gulchu" },
+    manufacturer: { "@type": "Organization", name: "Kaushik Agro Food", url: `${SITE_URL}/` },
+    offers: {
+      "@type": "AggregateOffer",
+      priceCurrency: "INR",
+      lowPrice: Math.min(...prices),
+      highPrice: Math.max(...prices),
+      offerCount: product.variants.length,
+      availability: "https://schema.org/InStock",
+      url,
+    },
+  };
+}
+
 function setMeta(selector, attr, value) {
   const el = document.head.querySelector(selector);
   if (el) el.setAttribute(attr, value);
+}
+
+function setJsonLd(items) {
+  let el = document.getElementById("route-jsonld");
+  if (!items.length) {
+    el?.remove();
+    return;
+  }
+  if (!el) {
+    el = document.createElement("script");
+    el.type = "application/ld+json";
+    el.id = "route-jsonld";
+    document.head.appendChild(el);
+  }
+  el.textContent = JSON.stringify({ "@context": "https://schema.org", "@graph": items });
 }
 
 function RouteSeo() {
@@ -99,10 +180,14 @@ function RouteSeo() {
 
   useEffect(() => {
     const page = pages[pathname];
+    const product = productsByPath[pathname];
     const title = page?.title || (page ? DEFAULT_TITLE : "Page Not Found | Gulchu");
     const description = page?.description || DEFAULT_DESCRIPTION;
     const url = SITE_URL + (page?.canonical ?? (pathname === "/" ? "/" : pathname));
     const robots = !page || page.noindex ? "noindex, follow" : "index, follow";
+    const image = product
+      ? { url: SITE_URL + product.image, type: "image/webp", width: "480", height: "720" }
+      : DEFAULT_IMAGE;
 
     document.title = title;
     setMeta('meta[name="description"]', "content", description);
@@ -111,8 +196,22 @@ function RouteSeo() {
     setMeta('meta[property="og:url"]', "content", url);
     setMeta('meta[property="og:title"]', "content", title);
     setMeta('meta[property="og:description"]', "content", description);
+    setMeta('meta[property="og:image"]', "content", image.url);
+    setMeta('meta[property="og:image:secure_url"]', "content", image.url);
+    setMeta('meta[property="og:image:type"]', "content", image.type);
+    setMeta('meta[property="og:image:width"]', "content", image.width);
+    setMeta('meta[property="og:image:height"]', "content", image.height);
     setMeta('meta[name="twitter:title"]', "content", title);
     setMeta('meta[name="twitter:description"]', "content", description);
+    setMeta('meta[name="twitter:image"]', "content", image.url);
+
+    const schema = [];
+    if (page && !page.noindex) {
+      const crumbs = breadcrumbsFor(pathname, title);
+      if (crumbs) schema.push(crumbs);
+      if (product) schema.push(productSchema(product, url));
+    }
+    setJsonLd(schema);
   }, [pathname]);
 
   return null;

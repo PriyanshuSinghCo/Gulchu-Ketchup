@@ -116,7 +116,7 @@ function ProductCard({ item }) {
         <div className="flex aspect-[4/3.6] items-center justify-center p-6">
           <img
             src={item.image}
-            alt={item.name}
+            alt={`Gulchu ${item.name}`}
             loading="lazy"
             draggable={false}
             className="h-full w-auto max-w-full object-contain mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-[1.06]"

@@ -217,7 +217,7 @@ function ProductsMega({ items }) {
               <motion.img
                 key={active}
                 src={item.image}
-                alt=""
+                alt={`Gulchu ${item.label}`}
                 initial={{ opacity: 0, y: 30, rotate: -10, scale: 0.85 }}
                 animate={{ opacity: 1, y: 0, rotate: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -20, rotate: 8, scale: 0.9 }}

@@ -148,7 +148,7 @@ const ProductCard = ({ name, image, variants, description }) => {
              >
                <img
                  src="/img/KetchupBottle.webp"
-                 alt="Product Preview"
+                 alt="Gulchu Tomato Ketchup"
                  className="w-8 h-8 object-contain"
                />
              </motion.div>

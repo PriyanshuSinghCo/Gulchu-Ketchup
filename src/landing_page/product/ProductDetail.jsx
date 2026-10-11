@@ -176,7 +176,7 @@ function RelatedCard({ product, index }) {
         >
           <img
             src={product.image}
-            alt={product.name}
+            alt={`Gulchu ${product.name}`}
             className="h-[80%] w-auto object-contain mix-blend-multiply transition-transform duration-500 group-hover:-translate-y-1 group-hover:scale-105"
             loading="lazy"
             draggable={false}

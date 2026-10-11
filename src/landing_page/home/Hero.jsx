@@ -207,7 +207,7 @@ function ProductCarousel({
           >
             <img
               src={products[currentSlide].src}
-              alt={products[currentSlide].label}
+              alt={`Gulchu ${products[currentSlide].label}`}
               className="h-[88%] w-auto max-w-[90%] object-contain mix-blend-multiply"
               fetchPriority="high"
               decoding="async"
@@ -353,6 +353,7 @@ const Hero = () => {
 
             <div className="mt-6 max-w-md sm:mt-7">
               <h1 className="hero-headline text-[clamp(1.5rem,5vw,2.6rem)] leading-snug text-[#1a1210]">
+                <span className="sr-only">Gulchu Tomato Ketchup, Sauces &amp; Pickles – </span>
                 Finish{" "}
                 <span className="relative inline-block text-[#c62828]">
                   strong
