@@ -14,7 +14,8 @@ const teamMembers = [
   {
     name: "Nishu Singh",
     role: "Managing Director",
-    // image: "/nishu.jpg", // add later
+    image: "/Nishu.jpeg",
+    imagePosition: "50% 30%",
     linkedin: "https://linkedin.com/in/nishu-singh",
     email: "nishu@example.com",
     bio: "Nishu Singh leads Gulchu as Managing Director, guiding brand growth, quality, and day-to-day excellence across the business.",
@@ -22,14 +23,14 @@ const teamMembers = [
   {
     name: "Saurabh Sharma",
     role: "GM",
-    // image: "/saurabh.jpg", // add later
+    image: "/Sourav.png",
     linkedin: "https://linkedin.com/in/saurabh-sharma",
     email: "saurabh@example.com",
     bio: "Saurabh Sharma serves as GM, overseeing operations and ensuring quality and efficiency across Gulchu’s supply and production.",
   },
 ];
 
-function MemberAvatar({ image, name, size = "lg" }) {
+function MemberAvatar({ image, imagePosition = "50% 15%", name, size = "lg" }) {
   const sizeClass =
     size === "lg"
       ? "h-28 w-28 text-4xl"
@@ -40,6 +41,7 @@ function MemberAvatar({ image, name, size = "lg" }) {
       <img
         src={image}
         alt={name}
+        style={{ objectPosition: imagePosition }}
         className={`mx-auto rounded-full object-cover ring-4 ring-[#f3eee8] ${sizeClass}`}
       />
     );
@@ -81,47 +83,82 @@ function ManagementTeam() {
 
         <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 md:mt-16 md:grid-cols-3 md:gap-6">
           {teamMembers.map((member, index) => (
-            <motion.button
+            <motion.div
               key={member.name}
-              type="button"
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.08, duration: 0.45 }}
-              onClick={() => setSelectedMember(member)}
-              className="group border border-[#1a1210]/10 bg-white p-6 text-left transition-colors hover:border-[#c62828]/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c62828]"
             >
-              <div className="transition-transform duration-300 group-hover:scale-[1.03]">
-                <MemberAvatar image={member.image} name={member.name} />
-              </div>
-              <h2 className="hero-copy mt-5 text-center text-lg font-bold text-[#1a1210] group-hover:text-[#c62828]">
-                {member.name}
-              </h2>
-              <p className="hero-copy mt-1 text-center text-sm font-medium text-[#1a1210]/55">
-                {member.role}
-              </p>
+              <article className="group relative flex h-full flex-col items-center overflow-hidden rounded-3xl bg-white px-6 pb-6 text-center ring-1 ring-[#1a1210]/8 transition duration-500 hover:-translate-y-1.5 hover:shadow-[0_28px_50px_-28px_rgba(139,30,30,0.5)] hover:ring-[#c62828]/25">
+                <div className="relative -mx-6 h-24 w-[calc(100%+3rem)] overflow-hidden bg-gradient-to-br from-[#d32f2f] via-[#b71c1c] to-[#7a1212]">
+                  <span
+                    className="absolute inset-0 opacity-30"
+                    style={{
+                      backgroundImage: "radial-gradient(rgba(255,255,255,0.35) 1px, transparent 1px)",
+                      backgroundSize: "14px 14px",
+                    }}
+                    aria-hidden
+                  />
+                  <span className="absolute -right-8 -top-10 h-32 w-32 rounded-full border border-white/20 transition-transform duration-700 group-hover:scale-125" aria-hidden />
+                  <span className="absolute -left-6 -bottom-12 h-24 w-24 rounded-full bg-[#f5b301]/25 blur-xl" aria-hidden />
+                  <span className="hero-copy absolute left-5 top-4 text-xs font-bold tabular-nums tracking-[0.2em] text-white/70">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                </div>
 
-              <div
-                className="mt-5 flex justify-center gap-4 text-lg text-[#1a1210]/45"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <a
-                  href={member.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-colors hover:text-[#0a66c2]"
-                  aria-label={`${member.name} LinkedIn`}
-                >
-                  <FaLinkedin />
-                </a>
-                <a
-                  href={`mailto:${member.email}`}
-                  className="transition-colors hover:text-[#c62828]"
-                  aria-label={`Email ${member.name}`}
-                >
-                  <FaEnvelope />
-                </a>
-              </div>
-            </motion.button>
+                <div className="relative -mt-14">
+                  <span
+                    className="absolute -inset-1.5 rounded-full bg-[conic-gradient(from_0deg,#f5b301,#c62828,#f5b301,#c62828,#f5b301)] opacity-0 transition-opacity duration-500 group-hover:animate-[spin_5s_linear_infinite] group-hover:opacity-100"
+                    aria-hidden
+                  />
+                  <span className="relative block rounded-full bg-white p-1 transition-transform duration-500 group-hover:scale-[1.04]">
+                    <MemberAvatar image={member.image} imagePosition={member.imagePosition} name={member.name} />
+                  </span>
+                </div>
+
+                <h2 className="hero-copy mt-5 text-lg font-extrabold tracking-tight text-[#1a1210] transition-colors group-hover:text-[#c62828] sm:text-xl">
+                  {member.name}
+                </h2>
+                <span className="hero-copy mt-2 rounded-full bg-[#c62828]/8 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[#c62828]">
+                  {member.role}
+                </span>
+                <p className="hero-copy mt-4 line-clamp-2 text-sm leading-relaxed text-[#1a1210]/60">
+                  {member.bio}
+                </p>
+
+                <div className="mt-auto flex w-full items-center justify-between border-t border-[#1a1210]/8 pt-4">
+                  <span className="hero-copy inline-flex items-center gap-1.5 text-sm font-semibold text-[#1a1210]/70 transition-colors group-hover:text-[#c62828]">
+                    View profile
+                    <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden>→</span>
+                  </span>
+                  <div className="relative z-20 flex gap-2">
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex h-9 w-9 items-center justify-center rounded-full bg-[#faf7f2] text-[#1a1210]/55 transition-colors hover:bg-[#0a66c2] hover:text-white"
+                      aria-label={`${member.name} LinkedIn`}
+                    >
+                      <FaLinkedin />
+                    </a>
+                    <a
+                      href={`mailto:${member.email}`}
+                      className="flex h-9 w-9 items-center justify-center rounded-full bg-[#faf7f2] text-[#1a1210]/55 transition-colors hover:bg-[#c62828] hover:text-white"
+                      aria-label={`Email ${member.name}`}
+                    >
+                      <FaEnvelope />
+                    </a>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setSelectedMember(member)}
+                  className="absolute inset-0 z-10 rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c62828]"
+                  aria-label={`View ${member.name}'s profile`}
+                />
+              </article>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -157,6 +194,7 @@ function ManagementTeam() {
 
               <MemberAvatar
                 image={selectedMember.image}
+                imagePosition={selectedMember.imagePosition}
                 name={selectedMember.name}
                 size="md"
               />

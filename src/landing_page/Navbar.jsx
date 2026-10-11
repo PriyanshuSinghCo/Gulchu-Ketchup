@@ -43,6 +43,116 @@ function ProductThumb({ src, accent = "#c62828", active = false, className = "h-
   );
 }
 
+function AboutMega({ items }) {
+  const [hovered, setHovered] = useState(null);
+
+  return (
+    <div className="flex">
+      <NavLink
+        to="/about"
+        className="group/feat relative m-2 mr-0 hidden w-[210px] shrink-0 flex-col overflow-hidden rounded-xl bg-[linear-gradient(160deg,#a32424_0%,#8b1e1e_45%,#4a0f0f_100%)] p-5 text-white lg:flex"
+      >
+        <span className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full border border-white/15" aria-hidden />
+        <span className="pointer-events-none absolute -right-4 -top-4 h-24 w-24 rounded-full border border-white/10" aria-hidden />
+        <span className="pointer-events-none absolute -bottom-16 -left-10 h-40 w-40 rounded-full bg-[#f5b301]/20 blur-2xl" aria-hidden />
+
+        <img
+          src="/logo2.jpeg"
+          alt=""
+          className="relative h-11 w-11 rounded-full object-cover ring-2 ring-white/30"
+          draggable={false}
+        />
+        <p className="relative mt-4 text-[10px] font-bold uppercase tracking-[0.2em] text-white/60">
+          Kaushik Agro Food
+        </p>
+        <p className="relative mt-1.5 text-lg font-bold leading-snug">
+          The makers of Gulchu.
+        </p>
+        <p className="relative mt-2 text-xs leading-relaxed text-white/70">
+          Sauces, chutneys and pickles crafted in Itkhori, Chatra since 2023.
+        </p>
+
+        <span className="relative mt-auto inline-flex w-fit items-center gap-1.5 rounded-full bg-white px-3.5 py-1.5 text-xs font-bold text-[#8b1e1e] shadow-sm transition-transform duration-300 group-hover/feat:scale-105">
+          Our story
+          <FiArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover/feat:translate-x-0.5" />
+        </span>
+      </NavLink>
+
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center justify-between px-5 pb-2 pt-4">
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#1a1210]/45">
+            About Gulchu
+          </p>
+          <NavLink
+            to="/about"
+            className="group/all inline-flex items-center gap-1 rounded-full bg-[#c62828]/8 px-3 py-1.5 text-xs font-bold text-[#c62828] transition-colors hover:bg-[#c62828] hover:text-white"
+          >
+            Overview
+            <FiArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover/all:translate-x-0.5" />
+          </NavLink>
+        </div>
+
+        <div className="flex flex-col gap-0.5 px-3 pb-3" onMouseLeave={() => setHovered(null)}>
+          {items.map((sublink, index) => {
+            const Icon = sublink.Icon;
+            return (
+              <div
+                key={sublink.path}
+                className="translate-y-1.5 opacity-0 transition duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100"
+                style={{ transitionDelay: `${60 + index * 40}ms` }}
+              >
+                <NavLink
+                  to={sublink.path}
+                  onMouseEnter={() => setHovered(index)}
+                  onFocus={() => setHovered(index)}
+                  className="group/item relative flex items-center gap-3.5 rounded-xl px-2.5 py-2.5"
+                >
+                  {({ isActive }) => (
+                    <>
+                      {(hovered === index || (hovered === null && isActive)) && (
+                        <motion.span
+                          layoutId="about-mega-highlight"
+                          className="absolute inset-0 rounded-xl bg-[#faf7f2] ring-1 ring-[#1a1210]/6"
+                          transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                          aria-hidden
+                        />
+                      )}
+                      <span
+                        className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-colors duration-200 ${
+                          hovered === index || isActive
+                            ? "bg-[#c62828] text-white shadow-[0_6px_14px_-6px_rgba(198,40,40,0.7)]"
+                            : "bg-[#c62828]/8 text-[#c62828]"
+                        }`}
+                      >
+                        <Icon className="h-[18px] w-[18px]" />
+                      </span>
+                      <span className="relative min-w-0 flex-1">
+                        <span
+                          className={`block text-sm font-semibold leading-snug transition-colors ${
+                            isActive ? "text-[#c62828]" : "text-[#1a1210]"
+                          }`}
+                        >
+                          {sublink.label}
+                        </span>
+                        <span className="block truncate text-xs text-[#1a1210]/50">{sublink.desc}</span>
+                      </span>
+                      <FiArrowUpRight
+                        className={`relative h-4 w-4 shrink-0 text-[#c62828] transition duration-200 ${
+                          hovered === index ? "translate-x-0 opacity-100" : "-translate-x-1 opacity-0"
+                        }`}
+                      />
+                    </>
+                  )}
+                </NavLink>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ProductsMega({ items }) {
   const [active, setActive] = useState(0);
   const item = items[active];
@@ -347,7 +457,7 @@ const Navbar = () => {
                       link.mega
                         ? "left-1/2 w-[min(560px,calc(100vw-2rem))] -translate-x-1/2 lg:w-[740px]"
                         : link.aboutMega
-                          ? "left-1/2 w-[min(480px,calc(100vw-2rem))] -translate-x-1/2"
+                          ? "right-0 w-[min(420px,calc(100vw-2rem))] lg:w-[600px]"
                           : "left-0 min-w-[200px]"
                     }`}
                   >
@@ -356,51 +466,7 @@ const Navbar = () => {
                     <div className="overflow-hidden rounded-2xl border border-[#1a1210]/8 bg-white shadow-[0_24px_60px_-20px_rgba(26,10,12,0.45)]">
                       {link.mega && <ProductsMega items={link.submenu} />}
 
-                      {link.aboutMega && (
-                        <>
-                          <div className="flex items-center justify-between border-b border-[#1a1210]/8 px-4 py-3">
-                            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#1a1210]/45">
-                              About Gulchu
-                            </p>
-                            <NavLink
-                              to="/about"
-                              className="text-xs font-bold text-[#c62828] hover:underline"
-                            >
-                              Overview →
-                            </NavLink>
-                          </div>
-                          <div className="grid grid-cols-2 gap-2 p-3">
-                            {link.submenu.map((sublink, subIndex) => {
-                              const Icon = sublink.Icon;
-                              return (
-                                <NavLink
-                                  key={subIndex}
-                                  to={sublink.path}
-                                  className={({ isActive }) =>
-                                    `group/item flex items-start gap-3 rounded-lg border px-3 py-3 transition-colors ${
-                                      isActive
-                                        ? "border-[#c62828]/35 bg-[#c62828]/8"
-                                        : "border-[#1a1210]/8 bg-[#faf7f2] hover:border-[#c62828]/30 hover:bg-white"
-                                    }`
-                                  }
-                                >
-                                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-white text-[#c62828] ring-1 ring-[#1a1210]/8">
-                                    <Icon className="h-4 w-4" />
-                                  </span>
-                                  <div>
-                                    <p className="text-sm font-bold text-[#1a1210] group-hover/item:text-[#c62828]">
-                                      {sublink.label}
-                                    </p>
-                                    <p className="mt-0.5 text-xs font-medium leading-snug text-[#1a1210]/55">
-                                      {sublink.desc}
-                                    </p>
-                                  </div>
-                                </NavLink>
-                              );
-                            })}
-                          </div>
-                        </>
-                      )}
+                      {link.aboutMega && <AboutMega items={link.submenu} />}
                     </div>
                   </div>
                 )}
