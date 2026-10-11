@@ -42,7 +42,7 @@ const OurStory = () => {
         >
           <div className="overflow-hidden rounded-3xl border border-[#1a1210]/[0.07] bg-white p-2 shadow-[0_30px_60px_-35px_rgba(90,18,18,0.5)]">
             <img
-              src="/OurStory.png"
+              src="/img/OurStory.webp"
               alt="Gulchu Tomato Ketchup bottles"
               loading="lazy"
               draggable={false}
@@ -51,7 +51,7 @@ const OurStory = () => {
           </div>
 
           <div className="absolute -bottom-5 left-5 flex items-center gap-3 rounded-2xl border border-[#1a1210]/[0.07] bg-white px-4 py-3 shadow-[0_16px_34px_-18px_rgba(26,18,16,0.35)] sm:left-8">
-            <img src="/logo2.jpeg" alt="" className="h-10 w-10 rounded-full object-cover" />
+            <img src="/img/logo.webp" alt="" className="h-10 w-10 rounded-full object-cover" />
             <div>
               <p className="hero-copy text-sm font-bold text-[#1a1210]">Since 2023</p>
               <p className="hero-copy text-xs text-[#1a1210]/55">Itkhori, Chatra · Jharkhand</p>

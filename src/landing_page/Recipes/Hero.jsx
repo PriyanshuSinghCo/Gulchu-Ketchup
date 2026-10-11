@@ -9,7 +9,7 @@ const categories = [
     time: "10–15 min",
     blurb: "Crispy bites and street-style plates ready in minutes.",
     pairs: "Green Chilli Sauce",
-    image: "/GreenChilli.png",
+    image: "/img/GreenChilli.webp",
   },
   {
     name: "Main Dishes",
@@ -17,7 +17,7 @@ const categories = [
     time: "30–45 min",
     blurb: "Hearty meals where Gulchu sauces do the heavy lifting.",
     pairs: "Continental Sauce",
-    image: "/ContinentalSauce.png",
+    image: "/img/ContinentalSauce.webp",
   },
   {
     name: "Dips & Sauces",
@@ -25,7 +25,7 @@ const categories = [
     time: "5–10 min",
     blurb: "Pairings and mixes that finish every table spread.",
     pairs: "Tomato Ketchup",
-    image: "/TomatoKetchup.png",
+    image: "/img/TomatoKetchup.webp",
   },
   {
     name: "Everyday Favorites",
@@ -33,7 +33,7 @@ const categories = [
     time: "15–20 min",
     blurb: "Simple recipes your kitchen will come back to often.",
     pairs: "Classic Ketchup",
-    image: "/Ketchup-gr.png",
+    image: "/img/Ketchup-gr.webp",
   },
 ];
 
@@ -163,19 +163,19 @@ const Hero = () => {
           </div>
 
           {/* Category list */}
-          <ul className="flex flex-col gap-2" role="tablist" aria-label="Recipe categories">
+          <div className="flex flex-col gap-2" role="tablist" aria-label="Recipe categories">
             {categories.map((cat, i) => {
               const isActive = i === active;
               return (
-                <li key={cat.name} className="flex-1">
-                  <button
+                <button
+                    key={cat.name}
                     type="button"
                     role="tab"
                     aria-selected={isActive}
                     onMouseEnter={() => setActive(i)}
                     onFocus={() => setActive(i)}
                     onClick={() => setActive(i)}
-                    className={`group relative flex h-full w-full items-start gap-4 rounded-2xl border px-4 py-4 text-left transition-all duration-300 ${
+                    className={`group relative flex h-full w-full flex-1 items-start gap-4 rounded-2xl border px-4 py-4 text-left transition-all duration-300 ${
                       isActive
                         ? "border-[#c62828]/20 bg-white shadow-[0_12px_30px_-18px_rgba(90,18,18,0.45)]"
                         : "border-transparent hover:bg-white/70"
@@ -210,10 +210,9 @@ const Hero = () => {
                       </span>
                     </span>
                   </button>
-                </li>
               );
             })}
-          </ul>
+          </div>
         </motion.div>
       </div>
     </section>

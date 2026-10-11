@@ -16,7 +16,7 @@ function Whatsaap() {
         aria-label="Chat on WhatsApp"
       >
         <img
-          src="/whatsapp-icon.jpg"
+          src="/img/whatsapp-icon.webp"
           alt=""
           className="h-12 w-12 rounded-lg sm:h-14 sm:w-14"
         />

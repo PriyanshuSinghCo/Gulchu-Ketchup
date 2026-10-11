@@ -58,10 +58,10 @@ const process = [
 ];
 
 const range = [
-  { name: "Ketchup", image: "/TomatoKetchup.png", path: "/product/TomatoKetchup" },
-  { name: "Chilli sauces", image: "/GreenChilli.png", path: "/product/GreenChilli" },
-  { name: "Pizza & pasta", image: "/ContinentalSauce.png", path: "/product/PizzaPastaSauce" },
-  { name: "Pickles", image: "/Ketchup-gr.png", path: "/product/Pickles(Achar)" },
+  { name: "Ketchup", image: "/img/TomatoKetchup.webp", path: "/product/TomatoKetchup" },
+  { name: "Chilli sauces", image: "/img/GreenChilli.webp", path: "/product/GreenChilli" },
+  { name: "Pizza & pasta", image: "/img/ContinentalSauce.webp", path: "/product/PizzaPastaSauce" },
+  { name: "Pickles", image: "/img/Ketchup-gr.webp", path: "/product/Pickles(Achar)" },
 ];
 
 function SectionLabel({ children }) {
@@ -114,7 +114,7 @@ function Company() {
         <motion.div {...reveal} transition={{ ...reveal.transition, delay: 0.1 }} className="relative">
           <div className="overflow-hidden rounded-3xl border border-[#1a1210]/[0.07] bg-white p-2 shadow-[0_30px_60px_-35px_rgba(90,18,18,0.5)]">
             <img
-              src="/OurStory.png"
+              src="/img/OurStory.webp"
               alt="Gulchu Tomato Ketchup"
               className="aspect-[4/3.4] w-full rounded-2xl object-cover"
               draggable={false}

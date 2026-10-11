@@ -6,7 +6,7 @@ import { useCart } from "../../context/CartContext";
 const productData = [
   {
     name: "Tomato Ketchup",
-    image: "/TomatoKetchup.png",
+    image: "/img/TomatoKetchup.webp",
     path: "/product/TomatoKetchup",
     category: "Sauces",
     variants: ["1kg", "500g", "200g"],
@@ -16,7 +16,7 @@ const productData = [
   },
   {
     name: "Red Chilli Sauce",
-    image: "/Ketchup-gr.png",
+    image: "/img/Ketchup-gr.webp",
     path: "/product/RedChilliSauce",
     category: "Sauces",
     variants: ["1kg", "500g", "200g"],
@@ -26,7 +26,7 @@ const productData = [
   },
   {
     name: "Green Chilli Sauce (Spicy)",
-    image: "/GreenChilli.png",
+    image: "/img/GreenChilli.webp",
     path: "/product/GreenChilli",
     category: "Sauces",
     variants: ["1kg", "700g", "500g", "200g"],
@@ -36,7 +36,7 @@ const productData = [
   },
   {
     name: "Schezwan Chutney",
-    image: "/GreenChilli.png",
+    image: "/img/GreenChilli.webp",
     path: "/product/SchezwanChutney",
     category: "Condiments",
     variants: ["1kg", "300g"],
@@ -46,7 +46,7 @@ const productData = [
   },
   {
     name: "Pizza & Pasta Sauce",
-    image: "/ContinentalSauce.png",
+    image: "/img/ContinentalSauce.webp",
     path: "/product/PizzaPastaSauce",
     category: "Sauces",
     variants: ["1kg", "500g"],
@@ -56,7 +56,7 @@ const productData = [
   },
   {
     name: "Garlic Paste",
-    image: "/ContinentalSauce.png",
+    image: "/img/ContinentalSauce.webp",
     path: "/product/GarlicPaste",
     category: "Pastes",
     variants: ["1kg", "500g", "200g"],
@@ -66,7 +66,7 @@ const productData = [
   },
   {
     name: "Pickles (Achar)",
-    image: "/Ketchup-gr.png",
+    image: "/img/Ketchup-gr.webp",
     path: "/product/Pickles(Achar)",
     category: "Pickles",
     variants: ["200g", "400g", "1kg", "5kg"],
@@ -76,7 +76,7 @@ const productData = [
   },
   {
     name: "Veg Mayonnaise",
-    image: "/ContinentalSauce.png",
+    image: "/img/ContinentalSauce.webp",
     path: "/product/VegMayonnaise",
     category: "Condiments",
     variants: ["250g", "400g", "900g"],
@@ -86,7 +86,7 @@ const productData = [
   },
   {
     name: "Momos Chutney",
-    image: "/GreenChilli.png",
+    image: "/img/GreenChilli.webp",
     path: "/product/MomosChutney",
     category: "Condiments",
     variants: ["300g", "700g"],
@@ -96,7 +96,7 @@ const productData = [
   },
   {
     name: "Soya Sauce",
-    image: "/ContinentalSauce.png",
+    image: "/img/ContinentalSauce.webp",
     path: "/product/SoyaSauce",
     category: "Sauces",
     variants: ["700ml"],

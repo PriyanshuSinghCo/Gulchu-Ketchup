@@ -57,7 +57,7 @@ function AboutMega({ items }) {
         <span className="pointer-events-none absolute -bottom-16 -left-10 h-40 w-40 rounded-full bg-[#f5b301]/20 blur-2xl" aria-hidden />
 
         <img
-          src="/logo2.jpeg"
+          src="/img/logo.webp"
           alt=""
           className="relative h-11 w-11 rounded-full object-cover ring-2 ring-white/30"
           draggable={false}
@@ -338,16 +338,16 @@ const navLinks = [
     label: "Products",
     mega: true,
     submenu: [
-      { label: "Tomato Ketchup", path: "/product/TomatoKetchup", image: "/TomatoKetchup.png", desc: "Bestseller", accent: "#b3261e", blurb: "Thick, tangy and made from ripe tomatoes." },
-      { label: "Red Chilli Sauce", path: "/product/RedChilliSauce", image: "/Ketchup-gr.png", desc: "Hot & tangy", accent: "#8f1a1a", blurb: "A bold kick for rolls, noodles and snacks." },
-      { label: "Chilli Sauce (Spicy)", path: "/product/GreenChilli", image: "/GreenChilli.png", desc: "Extra spicy", accent: "#2f6b2a", blurb: "Fiery green chilli heat in every drop." },
-      { label: "Schezwan Chutney", path: "/product/SchezwanChutney", image: "/GreenChilli.png", desc: "Indo-Chinese", accent: "#a5361c", blurb: "Garlicky, spicy and made for fried rice." },
-      { label: "Pizza & Pasta Sauce", path: "/product/PizzaPastaSauce", image: "/ContinentalSauce.png", desc: "Italian style", accent: "#b4442a", blurb: "Herby tomato base for pizza and pasta." },
-      { label: "Garlic Paste", path: "/product/GarlicPaste", image: "/ContinentalSauce.png", desc: "Kitchen staple", accent: "#8a6a2f", blurb: "Ready-to-use garlic for everyday cooking." },
-      { label: "Pickles (Achar)", path: "/product/Pickles(Achar)", image: "/Ketchup-gr.png", desc: "Homestyle", accent: "#7a4a12", blurb: "Traditional achar with a homemade taste." },
-      { label: "Veg Mayonnaise", path: "/product/VegMayonnaise", image: "/ContinentalSauce.png", desc: "Creamy & eggless", accent: "#9a7b3c", blurb: "Smooth and creamy for burgers and sandwiches." },
-      { label: "Momos Chutney", path: "/product/MomosChutney", image: "/GreenChilli.png", desc: "Street style", accent: "#b23a1f", blurb: "That street-side red chutney, in a bottle." },
-      { label: "Soya Sauce", path: "/product/SoyaSauce", image: "/ContinentalSauce.png", desc: "Umami rich", accent: "#3b2418", blurb: "Dark, savoury depth for stir-fries." },
+      { label: "Tomato Ketchup", path: "/product/TomatoKetchup", image: "/img/TomatoKetchup.webp", desc: "Bestseller", accent: "#b3261e", blurb: "Thick, tangy and made from ripe tomatoes." },
+      { label: "Red Chilli Sauce", path: "/product/RedChilliSauce", image: "/img/Ketchup-gr.webp", desc: "Hot & tangy", accent: "#8f1a1a", blurb: "A bold kick for rolls, noodles and snacks." },
+      { label: "Chilli Sauce (Spicy)", path: "/product/GreenChilli", image: "/img/GreenChilli.webp", desc: "Extra spicy", accent: "#2f6b2a", blurb: "Fiery green chilli heat in every drop." },
+      { label: "Schezwan Chutney", path: "/product/SchezwanChutney", image: "/img/GreenChilli.webp", desc: "Indo-Chinese", accent: "#a5361c", blurb: "Garlicky, spicy and made for fried rice." },
+      { label: "Pizza & Pasta Sauce", path: "/product/PizzaPastaSauce", image: "/img/ContinentalSauce.webp", desc: "Italian style", accent: "#b4442a", blurb: "Herby tomato base for pizza and pasta." },
+      { label: "Garlic Paste", path: "/product/GarlicPaste", image: "/img/ContinentalSauce.webp", desc: "Kitchen staple", accent: "#8a6a2f", blurb: "Ready-to-use garlic for everyday cooking." },
+      { label: "Pickles (Achar)", path: "/product/Pickles(Achar)", image: "/img/Ketchup-gr.webp", desc: "Homestyle", accent: "#7a4a12", blurb: "Traditional achar with a homemade taste." },
+      { label: "Veg Mayonnaise", path: "/product/VegMayonnaise", image: "/img/ContinentalSauce.webp", desc: "Creamy & eggless", accent: "#9a7b3c", blurb: "Smooth and creamy for burgers and sandwiches." },
+      { label: "Momos Chutney", path: "/product/MomosChutney", image: "/img/GreenChilli.webp", desc: "Street style", accent: "#b23a1f", blurb: "That street-side red chutney, in a bottle." },
+      { label: "Soya Sauce", path: "/product/SoyaSauce", image: "/img/ContinentalSauce.webp", desc: "Umami rich", accent: "#3b2418", blurb: "Dark, savoury depth for stir-fries." },
     ],
   },
   { path: "/recipe", label: "Recipes" },
@@ -430,7 +430,7 @@ const Navbar = () => {
         <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between px-3 sm:h-16 sm:px-6 lg:px-8">
           <NavLink to="/" aria-label="Home" className="flex items-center gap-2.5">
             <img
-              src="/logo2.jpeg"
+              src="/img/logo.webp"
               alt="Gulchu"
               className="h-10 w-10 rounded-full object-cover ring-2 ring-white/25"
             />

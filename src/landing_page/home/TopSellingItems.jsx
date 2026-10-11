@@ -12,7 +12,7 @@ const topItems = [
   {
     id: 1,
     name: "Tomato Ketchup",
-    image: "/TomatoKetchup.png",
+    image: "/img/TomatoKetchup.webp",
     size: "500g",
     price: 99,
     originalPrice: 129,
@@ -24,7 +24,7 @@ const topItems = [
   {
     id: 2,
     name: "Green Chilli Sauce",
-    image: "/GreenChilli.png",
+    image: "/img/GreenChilli.webp",
     size: "200g",
     price: 89,
     originalPrice: 119,
@@ -36,7 +36,7 @@ const topItems = [
   {
     id: 3,
     name: "Continental Sauce",
-    image: "/ContinentalSauce.png",
+    image: "/img/ContinentalSauce.webp",
     size: "250g",
     price: 109,
     originalPrice: 149,
@@ -48,7 +48,7 @@ const topItems = [
   {
     id: 4,
     name: "Classic Tomato Ketchup",
-    image: "/Ketchup-gr.png",
+    image: "/img/Ketchup-gr.webp",
     size: "1kg",
     price: 179,
     originalPrice: 239,
@@ -60,7 +60,7 @@ const topItems = [
   {
     id: 5,
     name: "Chilli Ketchup",
-    image: "/GreenChilli.png",
+    image: "/img/GreenChilli.webp",
     size: "500g",
     price: 129,
     originalPrice: 169,
@@ -72,7 +72,7 @@ const topItems = [
   {
     id: 6,
     name: "Premium Ketchup",
-    image: "/TomatoKetchup.png",
+    image: "/img/TomatoKetchup.webp",
     size: "200g",
     price: 99,
     originalPrice: 129,

@@ -16,19 +16,19 @@ const products = [
   {
     id: "ketchup",
     label: "Tomato Ketchup",
-    src: "/TomatoKetchup.png",
+    src: "/img/TomatoKetchup.webp",
     support: "Pasta, pizza, and weeknight plates—elevated in one pour.",
   },
   {
     id: "chilli",
     label: "Chilli Sauce",
-    src: "/GreenChilli.png",
+    src: "/img/GreenChilli.webp",
     support: "Pasta, pizza, and weeknight plates—elevated in one pour.",
   },
   {
     id: "continental",
     label: "Continental",
-    src: "/ContinentalSauce.png",
+    src: "/img/ContinentalSauce.webp",
     support: "Pasta, pizza, and weeknight plates—elevated in one pour.",
   },
 ];
@@ -190,7 +190,7 @@ function ProductCarousel({
         </div>
 
         {/* Active center card */}
-        <AnimatePresence mode="wait" custom={direction}>
+        <AnimatePresence mode="wait" custom={direction} initial={false}>
           <motion.div
             key={products[currentSlide].id}
             custom={direction}
@@ -209,6 +209,8 @@ function ProductCarousel({
               src={products[currentSlide].src}
               alt={products[currentSlide].label}
               className="h-[88%] w-auto max-w-[90%] object-contain mix-blend-multiply"
+              fetchPriority="high"
+              decoding="async"
               draggable={false}
             />
           </motion.div>

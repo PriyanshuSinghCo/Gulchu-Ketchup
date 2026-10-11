@@ -35,11 +35,11 @@ function Director() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55 }}
-          src="/Praveen Singh.jpeg"
+          src="/img/PraveenSingh.webp"
           alt="Mr. Praveen Kumar Singh"
           className="mx-auto mb-6 h-40 w-40 rounded-full object-cover ring-4 ring-white"
           onError={(e) => {
-            e.currentTarget.src = "/logo2.jpeg";
+            e.currentTarget.src = "/img/logo.webp";
           }}
         />
         <h1 className="hero-headline text-3xl text-[#1a1210] md:text-4xl">

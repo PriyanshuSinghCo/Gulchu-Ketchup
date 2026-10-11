@@ -2,31 +2,33 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const products = [
-  { label: "Tomato Ketchup", path: "/product/TomatoKetchup", image: "/TomatoKetchup.png" },
-  { label: "Red Chilli", path: "/product/RedChilliSauce", image: "/Ketchup-gr.png" },
-  { label: "Chilli Sauce", path: "/product/GreenChilli", image: "/GreenChilli.png" },
-  { label: "Schezwan", path: "/product/SchezwanChutney", image: "/GreenChilli.png" },
-  { label: "Pizza Pasta", path: "/product/PizzaPastaSauce", image: "/ContinentalSauce.png" },
-  { label: "Garlic Paste", path: "/product/GarlicPaste", image: "/ContinentalSauce.png" },
-  { label: "Pickles", path: "/product/Pickles(Achar)", image: "/Ketchup-gr.png" },
-  { label: "Mayonnaise", path: "/product/VegMayonnaise", image: "/ContinentalSauce.png" },
-  { label: "Momos Chutney", path: "/product/MomosChutney", image: "/GreenChilli.png" },
-  { label: "Soya Sauce", path: "/product/SoyaSauce", image: "/ContinentalSauce.png" },
+  { label: "Tomato Ketchup", path: "/product/TomatoKetchup", image: "/img/thumb/TomatoKetchup.webp" },
+  { label: "Red Chilli", path: "/product/RedChilliSauce", image: "/img/thumb/Ketchup-gr.webp" },
+  { label: "Chilli Sauce", path: "/product/GreenChilli", image: "/img/thumb/GreenChilli.webp" },
+  { label: "Schezwan", path: "/product/SchezwanChutney", image: "/img/thumb/GreenChilli.webp" },
+  { label: "Pizza Pasta", path: "/product/PizzaPastaSauce", image: "/img/thumb/ContinentalSauce.webp" },
+  { label: "Garlic Paste", path: "/product/GarlicPaste", image: "/img/thumb/ContinentalSauce.webp" },
+  { label: "Pickles", path: "/product/Pickles(Achar)", image: "/img/thumb/Ketchup-gr.webp" },
+  { label: "Mayonnaise", path: "/product/VegMayonnaise", image: "/img/thumb/ContinentalSauce.webp" },
+  { label: "Momos Chutney", path: "/product/MomosChutney", image: "/img/thumb/GreenChilli.webp" },
+  { label: "Soya Sauce", path: "/product/SoyaSauce", image: "/img/thumb/ContinentalSauce.webp" },
 ];
 
-function ProductItem({ product }) {
+function ProductItem({ product, hidden }) {
   return (
     <Link
       to={product.path}
       className="product-marquee-item group flex w-[68px] shrink-0 flex-col items-center gap-0.5 sm:w-[74px]"
       aria-label={product.label}
+      tabIndex={hidden ? -1 : undefined}
     >
       <span className="flex h-7 w-7 items-center justify-center overflow-hidden rounded-full bg-white/95 shadow-[0_1px_0_rgba(0,0,0,0.12)] transition-transform duration-300 active:scale-95 group-hover:scale-105 sm:h-8 sm:w-8">
         <img
           src={product.image}
           alt=""
           className="h-5 w-5 object-contain sm:h-6 sm:w-6"
-          loading="lazy"
+          width="24"
+          height="24"
           draggable={false}
         />
       </span>
@@ -56,7 +58,7 @@ function ProductCategoryBar() {
             <div key={copy} className="flex shrink-0 items-center" aria-hidden={copy === 1}>
               {group.map((product, index) => (
                 <div key={`${copy}-${index}`} className="shrink-0 pr-2 sm:pr-3">
-                  <ProductItem product={product} />
+                  <ProductItem product={product} hidden={copy === 1} />
                 </div>
               ))}
             </div>

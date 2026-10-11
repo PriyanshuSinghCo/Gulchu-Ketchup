@@ -6,7 +6,7 @@ const teamMembers = [
   {
     name: "Mr. Praveen Kumar Singh",
     role: "Founder & Managing Director",
-    image: "/Praveen Singh.jpeg",
+    image: "/img/PraveenSingh.webp",
     linkedin: "https://linkedin.com/in/praveen-kumar",
     email: "praveen@example.com",
     bio: "Praveen brings 20+ years of agro-industrial experience and leads with a vision of innovation and trust.",
@@ -14,7 +14,7 @@ const teamMembers = [
   {
     name: "Nishu Singh",
     role: "Managing Director",
-    image: "/Nishu.jpeg",
+    image: "/img/Nishu.webp",
     imagePosition: "50% 30%",
     linkedin: "https://linkedin.com/in/nishu-singh",
     email: "nishu@example.com",
@@ -23,7 +23,7 @@ const teamMembers = [
   {
     name: "Saurabh Sharma",
     role: "GM",
-    image: "/Sourav.png",
+    image: "/img/Sourav.webp",
     linkedin: "https://linkedin.com/in/saurabh-sharma",
     email: "saurabh@example.com",
     bio: "Saurabh Sharma serves as GM, overseeing operations and ensuring quality and efficiency across Gulchu’s supply and production.",

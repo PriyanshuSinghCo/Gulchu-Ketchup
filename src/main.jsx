@@ -1,36 +1,37 @@
-import { StrictMode } from "react";
+import { StrictMode, lazy, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from './landing_page/home/HomePage';
-import AboutPage from './landing_page/about/AboutPage';
-import ContactPage from './landing_page/contact/ContactPage';
-import ProductPage from './landing_page/product/productPage';
-import PageNotFound from './landing_page/PageNotFound';
-import Navbar from './landing_page/Navbar';
 import RecipesHero from './landing_page/Recipes/RecipesHero';
-import TomatoKetchup from './landing_page/product/subProduct.jsx/TomatoKetchup';
-import RedChilli from './landing_page/product/subProduct.jsx/RedChilli';
-import GreenChilli from './landing_page/product/subProduct.jsx/GreenChilli';
-import SchezwanChutney from './landing_page/product/subProduct.jsx/SchezwanChutney';
-import PizzaPastaSauce from './landing_page/product/subProduct.jsx/PizzaPastaSauce';
-import GarlicPaste from './landing_page/product/subProduct.jsx/GarlicPaste';
-import Pickles from './landing_page/product/subProduct.jsx/Pickles';
-import VegMayonnaise from './landing_page/product/subProduct.jsx/VegMayonnaise';
-import MomosChutney from './landing_page/product/subProduct.jsx/MomosChutney';
-import SoyaSauce from './landing_page/product/subProduct.jsx/SoyaSauce';
-import Company from './landing_page/about/subAbout/Company';
-import Director from './landing_page/about/subAbout/Director';
-import ManagementTeam from './landing_page/about/subAbout/ManagementTeam';
-import Video from './landing_page/about/subAbout/Video';
+import Navbar from './landing_page/Navbar';
 import Footer from './landing_page/Footer';
 import GoToTop from './landing_page/GoToTop';
-import CartPage from './landing_page/cart/CartPage';
-import CheckoutPage from './landing_page/checkout/CheckoutPage';
 import { CartProvider } from './context/CartContext';
 import RouteSeo from './landing_page/RouteSeo';
 import { MotionConfig } from 'framer-motion';
 import { ScrollToTop, PageTransition, ScrollProgress, CartToast } from './landing_page/SiteMotion';
+
+const AboutPage = lazy(() => import('./landing_page/about/AboutPage'));
+const ContactPage = lazy(() => import('./landing_page/contact/ContactPage'));
+const ProductPage = lazy(() => import('./landing_page/product/productPage'));
+const PageNotFound = lazy(() => import('./landing_page/PageNotFound'));
+const TomatoKetchup = lazy(() => import('./landing_page/product/subProduct.jsx/TomatoKetchup'));
+const RedChilli = lazy(() => import('./landing_page/product/subProduct.jsx/RedChilli'));
+const GreenChilli = lazy(() => import('./landing_page/product/subProduct.jsx/GreenChilli'));
+const SchezwanChutney = lazy(() => import('./landing_page/product/subProduct.jsx/SchezwanChutney'));
+const PizzaPastaSauce = lazy(() => import('./landing_page/product/subProduct.jsx/PizzaPastaSauce'));
+const GarlicPaste = lazy(() => import('./landing_page/product/subProduct.jsx/GarlicPaste'));
+const Pickles = lazy(() => import('./landing_page/product/subProduct.jsx/Pickles'));
+const VegMayonnaise = lazy(() => import('./landing_page/product/subProduct.jsx/VegMayonnaise'));
+const MomosChutney = lazy(() => import('./landing_page/product/subProduct.jsx/MomosChutney'));
+const SoyaSauce = lazy(() => import('./landing_page/product/subProduct.jsx/SoyaSauce'));
+const Company = lazy(() => import('./landing_page/about/subAbout/Company'));
+const Director = lazy(() => import('./landing_page/about/subAbout/Director'));
+const ManagementTeam = lazy(() => import('./landing_page/about/subAbout/ManagementTeam'));
+const Video = lazy(() => import('./landing_page/about/subAbout/Video'));
+const CartPage = lazy(() => import('./landing_page/cart/CartPage'));
+const CheckoutPage = lazy(() => import('./landing_page/checkout/CheckoutPage'));
 
 createRoot(document.getElementById("root")).render(
       <CartProvider>
@@ -43,6 +44,7 @@ createRoot(document.getElementById("root")).render(
             <Navbar />
             <main className="w-full max-w-full min-w-0 flex-1 overflow-x-clip">
               <PageTransition>
+              <Suspense fallback={<div className="min-h-[70vh]" />}>
               <Routes>
                 <Route path="/" element={<HomePage />}></Route>
                 <Route path="/home" element={<HomePage />}></Route>
@@ -69,6 +71,7 @@ createRoot(document.getElementById("root")).render(
                 <Route path="/checkout" element={<CheckoutPage />}></Route>
                 <Route path="/*" element={<PageNotFound />}></Route>
               </Routes>
+              </Suspense>
               </PageTransition>
             </main>
             <GoToTop />

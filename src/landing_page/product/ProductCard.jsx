@@ -147,7 +147,7 @@ const ProductCard = ({ name, image, variants, description }) => {
                className="bg-white rounded-full p-3 shadow-lg"
              >
                <img
-                 src="/Gulchü Tomato Ketchup Bottle (1).png"
+                 src="/img/KetchupBottle.webp"
                  alt="Product Preview"
                  className="w-8 h-8 object-contain"
                />

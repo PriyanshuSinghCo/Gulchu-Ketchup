@@ -7,7 +7,7 @@ export const productDetails = [
     name: "Tomato Ketchup",
     path: "/product/TomatoKetchup",
     category: "Sauces",
-    image: "/cutout/TomatoKetchup.png",
+    image: "/img/cutout/TomatoKetchup.webp",
     accent: "#b3261e",
     tagline: "Tangy, sweet & made from ripe tomatoes",
     description:
@@ -26,7 +26,7 @@ export const productDetails = [
     name: "Red Chilli Sauce",
     path: "/product/RedChilliSauce",
     category: "Sauces",
-    image: "/Ketchup-gr.png",
+    image: "/img/Ketchup-gr.webp",
     accent: "#8f1a1a",
     tagline: "Bold heat from real red chillies",
     description:
@@ -43,7 +43,7 @@ export const productDetails = [
     name: "Green Chilli Sauce (Spicy)",
     path: "/product/GreenChilli",
     category: "Sauces",
-    image: "/cutout/GreenChilli.png",
+    image: "/img/cutout/GreenChilli.webp",
     accent: "#2f6b2a",
     tagline: "Spicy, zesty & full of flavour",
     description:
@@ -61,7 +61,7 @@ export const productDetails = [
     name: "Schezwan Chutney",
     path: "/product/SchezwanChutney",
     category: "Condiments",
-    image: "/cutout/GreenChilli.png",
+    image: "/img/cutout/GreenChilli.webp",
     accent: "#a5361c",
     tagline: "Indo-Chinese fire with garlic & chilli",
     description:
@@ -77,7 +77,7 @@ export const productDetails = [
     name: "Pizza & Pasta Sauce",
     path: "/product/PizzaPastaSauce",
     category: "Sauces",
-    image: "/cutout/ContinentalSauce.png",
+    image: "/img/cutout/ContinentalSauce.webp",
     accent: "#b4442a",
     tagline: "Italian-style tomato, basil & herbs",
     description:
@@ -93,7 +93,7 @@ export const productDetails = [
     name: "Garlic Paste",
     path: "/product/GarlicPaste",
     category: "Pastes",
-    image: "/cutout/ContinentalSauce.png",
+    image: "/img/cutout/ContinentalSauce.webp",
     accent: "#8a6a2f",
     tagline: "Freshly ground, ready to cook",
     description:
@@ -110,7 +110,7 @@ export const productDetails = [
     name: "Pickles (Achar)",
     path: "/product/Pickles(Achar)",
     category: "Pickles",
-    image: "/Ketchup-gr.png",
+    image: "/img/Ketchup-gr.webp",
     accent: "#7a4a12",
     tagline: "Age-old recipes, homemade taste",
     description:
@@ -128,7 +128,7 @@ export const productDetails = [
     name: "Veg Mayonnaise",
     path: "/product/VegMayonnaise",
     category: "Condiments",
-    image: "/cutout/ContinentalSauce.png",
+    image: "/img/cutout/ContinentalSauce.webp",
     accent: "#9a7b3c",
     tagline: "Rich, creamy & eggless",
     description:
@@ -145,7 +145,7 @@ export const productDetails = [
     name: "Momos Chutney",
     path: "/product/MomosChutney",
     category: "Condiments",
-    image: "/cutout/GreenChilli.png",
+    image: "/img/cutout/GreenChilli.webp",
     accent: "#b23a1f",
     tagline: "That street-style red chutney",
     description:
@@ -161,7 +161,7 @@ export const productDetails = [
     name: "Soya Sauce",
     path: "/product/SoyaSauce",
     category: "Sauces",
-    image: "/cutout/ContinentalSauce.png",
+    image: "/img/cutout/ContinentalSauce.webp",
     accent: "#3b2418",
     tagline: "Dark, savoury & umami rich",
     description:
